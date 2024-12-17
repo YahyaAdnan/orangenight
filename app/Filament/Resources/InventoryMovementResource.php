@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\InventoryMovementResource\Pages;
 use App\Filament\Resources\InventoryMovementResource\RelationManagers;
 use App\Models\InventoryMovement;
+use App\Service\ImportService;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -19,67 +20,47 @@ class InventoryMovementResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    public static function form(Form $form): Form
+    public static function canCreate(): bool
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('item_id')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('from_inventory_id')
-                    ->numeric(),
-                Forms\Components\TextInput::make('to_inventory_id')
-                    ->numeric(),
-                Forms\Components\TextInput::make('quantity')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('type')
-                    ->required(),
-                Forms\Components\TextInput::make('user_id')
-                    ->required()
-                    ->numeric(),
-            ]);
+        return false;
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('item_id')
+                Tables\Columns\TextColumn::make('type'),
+                Tables\Columns\TextColumn::make('item.title')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('from_inventory_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('to_inventory_id')
-                    ->numeric()
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('fromInventory.title')
+                    ->badge()
+                    ->color('danger')
+                    ->sortable()
+                    ->toggleable(),
+                Tables\Columns\TextColumn::make('toInventory.title')
+                    ->badge()
+                    ->color('success')
+                    ->sortable()
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('quantity')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('type'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('user_id')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('user.name')
                     ->sortable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime('Y-m-d h:ia')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
+            
             ->filters([
                 //
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+            ->headerActions([
+                Tables\Actions\Action::make('import')
+                    ->form(ImportService::form(null))
+                    ->action(fn($data) => ImportService::store($data))
             ]);
     }
 
@@ -94,7 +75,7 @@ class InventoryMovementResource extends Resource
     {
         return [
             'index' => Pages\ListInventoryMovements::route('/'),
-            'create' => Pages\CreateInventoryMovement::route('/create'),
+            // 'create' => Pages\CreateInventoryMovement::route('/create'),
             'edit' => Pages\EditInventoryMovement::route('/{record}/edit'),
         ];
     }

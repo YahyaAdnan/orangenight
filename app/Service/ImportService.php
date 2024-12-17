@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Models\Branch;
 use App\Models\InventoryMovement;
+use App\Models\Item;
 use App\Models\InventoryStock;
 use Filament\Forms\Components;
 
@@ -12,11 +13,12 @@ class ImportService
 
     public static function form($records)
     {
-        $bulk = $records !== null;
+        $bulk = $records != null;
 
         return [
             Components\Select::make('inventory_id')
                 ->options(Branch::pluck('title', 'inventory_id'))
+                ->searchable()
                 ->required(),
             Components\Repeater::make('records')
                 ->label('Item')
@@ -27,10 +29,15 @@ class ImportService
                         'md' => 2
                     ])
                     ->schema([
-                        Components\Hidden::make('item_id'),
+                        $bulk ? Components\Hidden::make('item_id') 
+                            :   Components\Select::make('item_id')
+                                    ->options(Item::pluck('title', 'id'))
+                                    ->searchable()
+                                    ->required()
+                                    ->disableOptionsWhenSelectedInSiblingRepeaterItems(),
                         Components\TextInput::make('title')
                             ->disabled()
-                            ->required(),
+                            ->hidden(!$bulk),
                         Components\TextInput::make('quantity')
                             ->required()
                             ->numeric(),
@@ -40,10 +47,10 @@ class ImportService
                     $bulk ? $records->map(fn ($record) => [
                             'item_id' => $record->id,
                             'title' => $record->title,
-                        ])->toArray() : ''
+                        ])->toArray() : array()
                 )
-                ->addable($bulk)
-                ->deletable($bulk),
+                ->addable(!$bulk)
+                ->deletable(!$bulk),
         ];
     }
 

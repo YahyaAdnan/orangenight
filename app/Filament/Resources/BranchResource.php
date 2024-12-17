@@ -63,6 +63,7 @@ class BranchResource extends Resource
         return [
             'index' => Pages\ListBranches::route('/'),
             'create' => Pages\CreateBranch::route('/create'),
+            'view' => Pages\BranchView::route('/{record}'),
             'edit' => Pages\EditBranch::route('/{record}/edit'),
         ];
     }

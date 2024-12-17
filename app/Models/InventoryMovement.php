@@ -27,7 +27,7 @@ class InventoryMovement extends Model
 
     // Type constants for readability
     const TYPE_MOVE = 'move';
-    const TYPE_BOUGHT = 'bought';
+    const TYPE_SOLD = 'sold';
     const TYPE_IMPORT = 'import';
     const TYPE_DISTRIBUTION = 'distribution';
     const TYPE_DELETE = 'delete';
@@ -45,5 +45,10 @@ class InventoryMovement extends Model
     public function toInventory()
     {
         return $this->belongsTo(Inventory::class, 'to_inventory_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
