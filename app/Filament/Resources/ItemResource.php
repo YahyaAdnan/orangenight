@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Service\ImportService;
 use App\Filament\Resources\ItemResource\Pages;
 use App\Filament\Resources\ItemResource\RelationManagers;
 use App\Models\Item;
@@ -68,15 +69,17 @@ class ItemResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([
-                //
-            ])
+            // ->filters([
+                
+            // ])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\BulkAction::make('Import')
+                        ->form(fn($records) => ImportService::form($records))
+                        ->action(fn(array $data) => ImportService::store($data))
                 ]),
             ]);
     }

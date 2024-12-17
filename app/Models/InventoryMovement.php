@@ -3,10 +3,27 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class InventoryMovement extends Model
 {
-    protected $fillable = ['item_id', 'from_inventory_id', 'to_inventory_id', 'quantity', 'type'];
+    protected $fillable = [
+        'item_id',
+        'from_inventory_id',
+        'to_inventory_id',
+        'quantity',
+        'type',
+        'user_id'
+    ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->user_id = Auth::id();
+        });
+    }
 
     // Type constants for readability
     const TYPE_MOVE = 'move';
