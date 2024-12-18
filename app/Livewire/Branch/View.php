@@ -7,19 +7,15 @@ use Livewire\Component;
 
 class View extends Component
 {
-    public $branch, $selected_nav, $xy;
+    public $branch, $selected_nav, $navigators;
 
     public function mount(Branch $branch)
     {
         $this->branch = $branch;
         $this->selected_nav = 0;
-        $this->xy = array('Stock', 'Inventory Movement');
+        $this->navigators = array('Stock', 'Inventory Movement');
     }
 
-    public function test()
-    {
-        dd('abc');
-    }
 
     public function render()
     {

@@ -5,7 +5,6 @@
             <div>
                 <h2 class="text-lg font-bold">{{$branch->title}}</h2>
             </div>
-    
             <div>
                 <a href="{{$branch->id}}/edit">
                     <x-filament::button color="primary">
@@ -15,29 +14,30 @@
             </div>
         </div>
     </x-filament::section>
-    
-    <div class="flex space-x-4 my-4">
-        <!-- Tab 1 -->
-        <button 
-            class="tab-btn px-4 py-2 rounded bg-blue-500 text-white" 
-            data-tab="tab-stock"
-        >
-            Inventory Stock
-        </button>
-        <!-- Tab 2 -->
-        <button 
-            class="tab-btn px-4 py-2 rounded bg-gray-200" 
-            data-tab="tab-movement"
-        >
-            Inventory Movement
-        </button>
+
+    <div class="flex w-full pt-4">
+        @foreach ($navigators as $key => $navigator)
+            <x-filament::button
+                size="md"
+                color="gray"
+                class="flex-1"
+                color="{{$selected_nav == $key ? 'primary' : 'gray'}}"
+                wire:click="$set('selected_nav', {{ $key }})"
+            >
+                {{ $navigator }}
+            </x-filament::button>
+        @endforeach
     </div>
 
-    <!-- Tab Content -->
-    <div id="tab-stock" class="tab-content">
-        @livewire('InventoryStock', ['model' => $branch])
-    </div>
-    <div id="tab-movement" class="tab-content hidden">
-        @livewire('InventoryMovementTable', ['model' => $branch])
+    <div class="pt-4">
+        @switch($selected_nav)
+            @case(0)
+                @livewire('InventoryStock', ['model' => $branch])
+                @break
+            @case(1)
+                @livewire('InventoryMovementTable', ['model' => $branch])
+                @break
+            @default
+        @endswitch
     </div>
 </div>

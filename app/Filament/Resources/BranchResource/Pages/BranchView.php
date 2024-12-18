@@ -17,7 +17,7 @@ class BranchView extends ViewRecord
         return $infolist
             ->schema([
                 ViewEntry::make('livewire')
-                    ->view('livewire.branch.view', ['branch' => $infolist->record])
+                    ->view('app.branch.view', ['branch' => $infolist->record])
                     ->columnSpanFull(),
             ]);
     }    
