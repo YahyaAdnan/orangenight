@@ -53,9 +53,34 @@ class InventoryMovementResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('type')
+                    ->multiple()
+                    ->options([
+                        'move' => 'Move',
+                        'sold' => 'Sold',
+                        'import' => 'Import',
+                        'distribution' => 'Distribution',
+                        'Delete' => 'Delete',
+                    ]),
+
+                Tables\Filters\Filter::make('created_at')
+                    ->form([
+                        Forms\Components\DatePicker::make('created_from'),
+                        Forms\Components\DatePicker::make('created_until')
+                            ->default(now()),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder{
+                        if (!empty($data['created_from'])) {
+                            $query->whereDate('created_at', '>=', $data['created_from']);
+                        }
+    
+                        if (!empty($data['created_until'])) {
+                            $query->whereDate('created_at', '<=', $data['created_until']);
+                        }
+    
+                        return $query;
+                    }),
             ])
             ->headerActions([
                 Tables\Actions\Action::make('import')

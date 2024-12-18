@@ -19,6 +19,12 @@ class Inventory extends Model
         return $this->hasMany(Branch::class);
     }
 
+    public function inventoryStock()
+    {
+        return $this->hasMany(InventoryStock::class);
+    }
+
+
     /**
      * Get the salesmen associated with this inventory.
      */
