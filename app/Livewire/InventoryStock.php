@@ -4,7 +4,7 @@ namespace App\Livewire;
 
 use App\Service\DistributionService;
 use App\Service\MovingService;
-use App\Service\ImportService;
+use App\Service\DeleteService;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
@@ -50,6 +50,11 @@ class InventoryStock extends BaseWidget
                         ->icon('heroicon-s-user')
                         ->form(fn($record) => DistributionService::form($record))
                         ->action(fn(InvSk $invSk, $data) => DistributionService::store($invSk, $data)),
+                    Tables\Actions\Action::make('delete')
+                        ->label('delete')
+                        ->icon('heroicon-s-trash')
+                        ->form(fn($record) => DeleteService::form($record))
+                        ->action(fn(InvSk $invSk, $data) => DeleteService::store($invSk, $data)),
                 ])->icon('heroicon-m-ellipsis-horizontal'),
             ]);
     }

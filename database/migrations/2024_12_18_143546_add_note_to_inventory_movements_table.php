@@ -12,10 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('inventory_movements', function (Blueprint $table) {
-            // Modify the ENUM column by dropping and recreating it
-            $table->enum('type', ['move', 'sold', 'import', 'destruction', 'delete', 'distribution'])
-                  ->default('move')
-                  ->change();
+            $table->text('note')->nullable()->after('quantity'); // Adjust the "after" column if necessary
         });
     }
 
@@ -25,10 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('inventory_movements', function (Blueprint $table) {
-            // Rollback to the original ENUM values
-            $table->enum('type', ['move', 'bought', 'import', 'destruction', 'delete'])
-                  ->default('move')
-                  ->change();
+            $table->dropColumn('note');
         });
     }
 };

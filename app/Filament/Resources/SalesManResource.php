@@ -95,6 +95,7 @@ class SalesManResource extends Resource
         return [
             'index' => Pages\ListSalesMen::route('/'),
             'create' => Pages\CreateSalesMan::route('/create'),
+            'view' => Pages\SalesManView::route('/{record}'),
             'edit' => Pages\EditSalesMan::route('/{record}/edit'),
         ];
     }
