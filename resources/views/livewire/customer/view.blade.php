@@ -32,11 +32,14 @@
     <div class="pt-4">
         @switch($selected_nav)
             @case(0)
-                @livewire('InventoryStock', ['model' => $customer])
+                @livewire('DeliveryTable', ['model' => $customer])
                 @break
             @case(1)
                 @livewire('InventoryMovementTable', ['model' => $customer])
                 @break
+            @case(2)
+                @livewire('InventoryStock', ['model' => $customer])
+                    @break
             @default
         @endswitch
     </div>

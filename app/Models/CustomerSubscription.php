@@ -41,7 +41,7 @@ class CustomerSubscription extends Model
         return $this->belongsTo(Receipt::class, 'receipt_id');
     }
 
-
+    
     public function deliveries()
     {
         return $this->hasMany(Delivery::class);

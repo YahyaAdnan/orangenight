@@ -13,7 +13,8 @@ class InventoryMovement extends Model
         'to_inventory_id',
         'quantity',
         'note',
-        'type',
+        'type', //['move', 'sold', 'import', 'destruction', 
+                //'delete', 'distribution', 'Delivery', 'refund']
         'user_id'
     ];
 

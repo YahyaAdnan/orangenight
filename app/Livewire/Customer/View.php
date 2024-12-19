@@ -13,7 +13,7 @@ class View extends Component
     {
         $this->customer = $customer;
         $this->selected_nav = 0;
-        $this->navigators = array('Stock', 'Inventory Movement');
+        $this->navigators = array('Deliveries', 'Inventory Movement', 'Stock');
     }
 
     public function render()
