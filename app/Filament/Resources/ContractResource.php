@@ -62,6 +62,7 @@ class ContractResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -82,6 +83,7 @@ class ContractResource extends Resource
     {
         return [
             'index' => Pages\ListContracts::route('/'),
+            'view' => Pages\ViewContract::route('/{record}'),
             'create' => Pages\CreateContract::route('/create'),
             'edit' => Pages\EditContract::route('/{record}/edit'),
         ];
