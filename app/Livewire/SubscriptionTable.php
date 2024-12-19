@@ -2,10 +2,12 @@
 
 namespace App\Livewire;
 
+use App\Service\PaymentService;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
 use App\Models\CustomerSubscription;
+use Illuminate\Database\Eloquent\Model;
 
 class SubscriptionTable extends BaseWidget
 {
@@ -27,16 +29,24 @@ class SubscriptionTable extends BaseWidget
                 Tables\Columns\TextColumn::make('subscription.title')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('duration')
-                    ->suffix("days")
+                    ->suffix(" Days")
                     ->sortable(),
+                Tables\Columns\TextColumn::make('receipt.total_amount')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('receipt.paid')
+                    ->numeric()
+                    ->sortable(),
+            ])
+            ->actions([
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\Action::make('show')
+                        ->label('show payment')
+                        ->icon('heroicon-s-eye')
+                        ->form(fn($record) => PaymentService::showReceipt($record->receipt))
+                        ->modalCancelAction(false)
+                        ->modalSubmitAction(false)
+                ])
             ]);
-
-            // 'customer_id',
-            // 'subscription_id',
-            // 'agreement_id',
-            // 'active',
-            // 'address',
-            // 'duration',
-            // 'receipt_id'
     }
 }

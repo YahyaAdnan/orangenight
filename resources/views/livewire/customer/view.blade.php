@@ -40,6 +40,9 @@
             @case(2)
                 @livewire('InventoryStock', ['model' => $customer])
                     @break
+            @case(3)
+                @livewire('SubscriptionTable', ['model' => $customer])
+                    @break
             @default
         @endswitch
     </div>
