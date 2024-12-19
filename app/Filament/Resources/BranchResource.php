@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Coolsam\SignaturePad\Forms\Components\Fields\SignaturePad;
 
 class BranchResource extends Resource
 {
@@ -26,7 +27,8 @@ class BranchResource extends Resource
                 Forms\Components\TextInput::make('title')
                     ->minLength(4)
                     ->maxLength(32)
-                    ->required()
+                    ->required(),
+                SignaturePad::make('my_signature'),
             ]);
     }
 
