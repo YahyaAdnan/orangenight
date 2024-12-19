@@ -20,6 +20,10 @@ class SubscriptionForm
 
         return [
             SubscriptionForm::selectSubscription(),
+            Components\TextInput::make('address')
+                ->required()
+                ->maxLength(128)
+                ->columnSpanFull(),
             SubscriptionForm::selectCustomers($customers)
         ];
     }
@@ -52,7 +56,7 @@ class SubscriptionForm
                                 ->default($get('subscription_id') ? Subscription::find($get('subscription_id'))->contract->title : '')
                                 ->hidden(is_null($get('subscription_id')))
                                 ->live(),
-                            Components\TextArea::make('contract')
+                            Components\TextArea::make('contract_description')
                                 ->label('')
                                 ->disabled()
                                 ->default($get('subscription_id') ? Subscription::find($get('subscription_id'))->contract->description : '')

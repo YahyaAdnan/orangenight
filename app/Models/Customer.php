@@ -37,4 +37,10 @@ class Customer extends Model
     {
         return $this->morphMany(Document::class, 'documentable');
     }
+
+    public function deliveries()
+    {
+        return $this->hasMany(Delivery::class);
+    }
+
 }

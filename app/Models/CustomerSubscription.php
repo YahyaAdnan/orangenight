@@ -34,6 +34,11 @@ class CustomerSubscription extends Model
         return $this->belongsTo(Subscription::class, 'subs_id');
     }
 
+    public function deliveries()
+    {
+        return $this->hasMany(Delivery::class);
+    }
+
     public function agreement()
     {
         return $this->belongsTo(Agreement::class);

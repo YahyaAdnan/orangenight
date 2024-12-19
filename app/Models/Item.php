@@ -46,4 +46,10 @@ class Item extends Model
     {
         return asset('storage/' . $this->image);
     }
+
+    public function deliveries()
+    {
+        return $this->hasMany(Delivery::class);
+    }
+
 }
