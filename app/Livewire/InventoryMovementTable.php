@@ -47,6 +47,9 @@ class InventoryMovementTable extends BaseWidget
                     ->sortable(),
                 Tables\Columns\TextColumn::make('user.name')
                     ->sortable(),
+                Tables\Columns\TextColumn::make('note')
+                    ->wrap()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime('Y-m-d h:ia')
                     ->sortable()
