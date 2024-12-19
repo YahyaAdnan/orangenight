@@ -3,13 +3,17 @@
 namespace App\Service;
 
 use App\Models\Agreement;
+use App\Models\Receipt;
 use App\Models\Contract;
+use App\Models\Delivery;
 use App\Models\Customer;
+use App\Models\CustomerSubscription;
 use App\Models\Subscription;
 use App\Models\SalesMan;
 use Filament\Forms\Components;
 use Filament\Forms\Get;
 use Coolsam\SignaturePad\Forms\Components\Fields\SignaturePad;
+use Illuminate\Support\Facades\Auth;
 
 class SubscriptionForm
 {
@@ -121,4 +125,72 @@ class SubscriptionForm
             ->schema($termsComponents)
             ->columnSpanFull();
     }
+
+    public static function store($data)
+    {
+        $customer = Customer::find($data['customer_id']);
+        $subscription = Subscription::find($data['subscription_id']);
+
+        $receipt = Receipt::create([
+            'title' => $customer->full_name . ' (' . now()->format('d-m-Y H:i') . ')',
+            'code' => SubscriptionForm::receiptCode(),
+            'total_amount' => $subscription->price,
+            'discount_amount' => 0,
+            'amount' => $subscription->price,
+            'paid' => 0,
+            'customer_id' => $customer->id,
+        ]);
+
+        $agreement = Agreement::create([
+            'contract_id' => $subscription->contract_id,
+            'customer_id' => $customer->id,
+            'user_id' => Auth::id(),
+            'customer_signature' => $data['customer_signature'],
+            'salesman_signature' => $data['salesman_signature'],
+            'status' => 'accepted',
+            'agreement_date' => now(),
+        ]);
+
+        $customerSub = CustomerSubscription::create([
+            'customer_id' => $customer->id,
+            'subscription_id' => $subscription->id,
+            'agreement_id' => $agreement->id ,
+            'active' => 1,
+            'address' => $data['address'],
+            'duration' => $subscription->duration,
+            'receipt_id' => $receipt->id,
+        ]);
+
+        SubscriptionForm::createDeliveries($customerSub);
+
+        return $customerSub;
+    }
+
+    public static function receiptCode()
+    {
+        $currentDate = now()->format('d/m/Y');  // e.g. "24/12/2025"
+
+        $receiptCount = Receipt::whereDate('created_at', now()->toDateString())->count();
+
+        return now()->format('ymd') . str_pad($receiptCount, 4, '0', STR_PAD_LEFT);
+
+    }
+
+
+    public static function createDeliveries(CustomerSubscription $customerSubscription)
+    {
+        foreach ($customerSubscription->subscription->subscriptionTerms as $key => $term)
+        {
+            Delivery::create([
+                'deliverable_type' => get_class($customerSubscription),
+                'deliverable_id' => $customerSubscription->id,  
+                'customer_id' => $customerSubscription->customer_id,
+                'item_id' => $term->item_id,
+                'quantity' => $term->quantity,
+                'date' => now()->addDays($term->day),
+                'status' => 'pending', // enum('pending','delivered','cancel')
+            ]);
+        }
+    }
+
 }

@@ -8,7 +8,8 @@ class Delivery extends Model
 {
     
     protected $fillable = [
-        'customer_subscription_id',
+        'deliverable_type',
+        'deliverable_id',
         'customer_id',
         'item_id',
         'quantity',
@@ -16,6 +17,11 @@ class Delivery extends Model
         'status', // enum('pending','delivered','cancel')
         'signature',
     ];
+
+    public function deliverable()
+    {
+        return $this->morphTo();
+    }
 
     public function customerSubscription()
     {

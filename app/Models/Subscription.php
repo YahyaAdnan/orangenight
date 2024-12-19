@@ -13,6 +13,7 @@ class Subscription extends Model
         'contract_id',
         'active',
         'address',
+        'price'
     ];
 
     public function contract()

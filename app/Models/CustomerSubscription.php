@@ -14,6 +14,7 @@ class CustomerSubscription extends Model
         'subscription_id',
         'agreement_id',
         'active',
+        'address',
         'duration',
         'receipt_id'
     ];

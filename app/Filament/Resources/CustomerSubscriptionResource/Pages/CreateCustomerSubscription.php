@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\CustomerSubscriptionResource\Pages;
 
+use App\Service\SubscriptionForm;
 use App\Filament\Resources\CustomerSubscriptionResource;
 use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
@@ -13,6 +14,6 @@ class CreateCustomerSubscription extends CreateRecord
 
     protected function handleRecordCreation(array $data): Model
     {
-        dd($data);
+        return SubscriptionForm::store($data);
     }
 }
