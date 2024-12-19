@@ -14,6 +14,7 @@ class Delivery extends Model
         'quantity',
         'date',
         'status', // enum('pending','delivered','cancel')
+        'signature',
     ];
 
     public function customerSubscription()

@@ -15,6 +15,7 @@ class CustomerSubscription extends Model
         'agreement_id',
         'active',
         'duration',
+        'receipt_id'
     ];
 
     // Specify casts for certain fields
@@ -31,8 +32,14 @@ class CustomerSubscription extends Model
 
     public function subscription()
     {
-        return $this->belongsTo(Subscription::class, 'subs_id');
+        return $this->belongsTo(Subscription::class, 'subscription_id');
     }
+
+    public function receipt()
+    {
+        return $this->belongsTo(Receipt::class, 'receipt_id');
+    }
+
 
     public function deliveries()
     {

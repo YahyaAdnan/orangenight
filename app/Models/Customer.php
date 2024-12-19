@@ -43,4 +43,8 @@ class Customer extends Model
         return $this->hasMany(Delivery::class);
     }
 
+    public function receipts()
+    {
+        return $this->hasMany(Receipt::class);
+    }
 }
