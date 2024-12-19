@@ -10,6 +10,7 @@ class Agreement extends Model
 
     // Specify the fillable attributes (fields that can be mass-assigned)
     protected $fillable = [
+        'contract_id',
         'customer_id',
         'user_id',
         'data',
@@ -33,6 +34,11 @@ class Agreement extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function contract()
+    {
+        return $this->belongsTo(Contract::class);
     }
 
 }
