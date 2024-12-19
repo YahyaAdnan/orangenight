@@ -12,7 +12,6 @@ class Customer extends Model
         'phone',
         'inventory_id',
         'note',
-        'signature',
     ];
 
     /**
@@ -32,5 +31,10 @@ class Customer extends Model
     public function inventory()
     {
         return $this->belongsTo(Inventory::class);
+    }
+
+    public function documents()
+    {
+        return $this->morphMany(Document::class, 'documentable');
     }
 }

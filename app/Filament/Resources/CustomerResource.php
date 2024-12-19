@@ -27,8 +27,9 @@ class CustomerResource extends Resource
                 Forms\Components\TextInput::make('full_name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('address')
-                    ->columnSpanFull(),
+                Forms\Components\TextInput::make('address')
+                    ->required()
+                    ->maxLength(255),
                 Forms\Components\Repeater::make('phone')
                     ->label('phone') 
                     ->schema([
@@ -37,10 +38,28 @@ class CustomerResource extends Resource
                             ->telRegex('/^07[0-9]{9}$/')
                             ->required(),
                     ])
+                    ->columnSpanFull()
                     ->minItems(1),
-                Forms\Components\Textarea::make('note')
+                Forms\Components\Repeater::make('documents')
+                    ->label('documents')
+                    ->relationship()
+                    ->schema([
+                        Forms\Components\Grid::make([
+                            'default' => 2,
+                            'sm' => 1,
+                            'md' => 2,
+                        ])
+                        ->schema([
+                            Forms\Components\TextInput::make('title')
+                                ->maxLength(32)
+                                ->required(),
+                            Forms\Components\FileUpload::make('image')
+                                ->required()
+                                ->image()
+                        ])
+                    ])
                     ->columnSpanFull(),
-                SignaturePad::make('signature')
+                Forms\Components\Textarea::make('note')
                     ->columnSpanFull(),
             ]);
     }
