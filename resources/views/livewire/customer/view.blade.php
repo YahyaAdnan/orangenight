@@ -43,6 +43,9 @@
             @case(3)
                 @livewire('SubscriptionTable', ['model' => $customer])
                     @break
+            @case(4)
+                @livewire('ReceiptTable', ['model' => $customer])
+                    @break
             @default
         @endswitch
     </div>

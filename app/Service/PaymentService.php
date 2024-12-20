@@ -48,6 +48,7 @@ class PaymentService
                     'created_at' => $payment->created_at,
                 ])->toArray())
                 ->disableItemCreation()
+                ->disableItemDeletion()
                 ->columnSpanFull(),
         ];
     }

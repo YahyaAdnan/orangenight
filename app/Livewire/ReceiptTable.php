@@ -2,11 +2,16 @@
 
 namespace App\Livewire;
 
+use App\Service\PaymentService;
 use App\Models\Customer;
 use App\Models\Receipt;
 use App\Models\Payment;
+use Filament\Forms;
+use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class ReceiptTable extends BaseWidget
 {
@@ -77,15 +82,16 @@ class ReceiptTable extends BaseWidget
                     Tables\Actions\Action::make('show')
                         ->label('show payment')
                         ->icon('heroicon-s-eye')
-                        ->form(fn($record) => PaymentService::showReceipt($record->receipt))
+                        ->form(fn($record) => PaymentService::showReceipt($record))
                         ->modalCancelAction(false)
                         ->modalSubmitAction(false),
 
                     Tables\Actions\Action::make('create_payments')
                         ->label('Create Payments')
                         ->icon('heroicon-s-currency-dollar')
-                        ->form(fn($record) => PaymentService::form($record->receipt))
-                        ->action(fn($record, $data) => PaymentService::store($record->receipt, $data)),
+                        ->form(fn($record) => PaymentService::form($record))
+                        ->action(fn($record, $data) => PaymentService::store($record, $data))
+                        ->disabled(fn($record) => $record->total_amount == $record->paid),
                 ]),
             ]);
     }
