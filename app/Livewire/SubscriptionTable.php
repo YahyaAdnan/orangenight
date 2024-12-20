@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Service\PaymentService;
+use App\Service\AgreementPDF;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
@@ -45,7 +46,12 @@ class SubscriptionTable extends BaseWidget
                         ->icon('heroicon-s-eye')
                         ->form(fn($record) => PaymentService::showReceipt($record->receipt))
                         ->modalCancelAction(false)
-                        ->modalSubmitAction(false)
+                        ->modalSubmitAction(false),
+
+                    Tables\Actions\Action::make('generate_pdf')
+                        ->label('Agreement PDF')
+                        ->icon('heroicon-s-folder-arrow-down')
+                        ->action(fn($record) => AgreementPDF::generatePDF($record->agreement))
                 ])
             ]);
     }
