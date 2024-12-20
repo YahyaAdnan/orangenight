@@ -5,6 +5,8 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CustomerSubscriptionResource\Pages;
 use App\Filament\Resources\CustomerSubscriptionResource\RelationManagers;
 use App\Models\CustomerSubscription;
+use App\Models\Subscription;
+use App\Models\Customer;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -30,7 +32,7 @@ class CustomerSubscriptionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('customer.title')
+                Tables\Columns\TextColumn::make('customer.full_name')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('subscription.title')
@@ -47,7 +49,15 @@ class CustomerSubscriptionResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('subscription_id')
+                    ->label('subscription')
+                    ->multiple()
+                    ->options(Subscription::pluck('title', 'id')),
+
+                Tables\Filters\SelectFilter::make('customer_id')
+                    ->label('Customers')
+                    ->multiple()
+                    ->options(Customer::pluck('full_name', 'id')),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
