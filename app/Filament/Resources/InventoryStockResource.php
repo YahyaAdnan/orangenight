@@ -19,22 +19,7 @@ class InventoryStockResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('item_id')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('inventory.name')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('quantity')
-                    ->required()
-                    ->numeric()
-                    ->default(0),
-            ]);
-    }
+
 
     public static function table(Table $table): Table
     {
@@ -50,12 +35,23 @@ class InventoryStockResource extends Resource
                     ->numeric()
                     ->sortable(),
             ])
+            ->filters([
+                Tables\Filters\SelectFilter::make('item_id')
+                    ->label('Items')
+                    ->multiple()
+                    ->options(Item::pluck('title', 'id')),
+
+                Tables\Filters\SelectFilter::make('customer_id')
+                    ->label('Customers')
+                    ->multiple()
+                    ->options(Customer::pluck('full_name', 'id')),
+            ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                // Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    // Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -71,8 +67,8 @@ class InventoryStockResource extends Resource
     {
         return [
             'index' => Pages\ListInventoryStocks::route('/'),
-            'create' => Pages\CreateInventoryStock::route('/create'),
-            'edit' => Pages\EditInventoryStock::route('/{record}/edit'),
+            // 'create' => Pages\CreateInventoryStock::route('/create'),
+            // 'edit' => Pages\EditInventoryStock::route('/{record}/edit'),
         ];
     }
 }

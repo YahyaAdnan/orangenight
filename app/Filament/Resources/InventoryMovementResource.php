@@ -61,7 +61,7 @@ class InventoryMovementResource extends Resource
                         'sold' => 'Sold',
                         'import' => 'Import',
                         'distribution' => 'Distribution',
-                        'Delete' => 'Delete',
+                        'Delete' => 'Delete',//TODO: ADD all others.
                     ]),
 
                 Tables\Filters\Filter::make('created_at')

@@ -30,13 +30,10 @@ class CustomerSubscriptionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('customer_id')
+                Tables\Columns\TextColumn::make('customer.title')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('subscription_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('agreement_id')
+                Tables\Columns\TextColumn::make('subscription.title')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\IconColumn::make('active')
@@ -45,11 +42,7 @@ class CustomerSubscriptionResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
+                    ->dateTime('d/m/Y')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
