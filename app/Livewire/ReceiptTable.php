@@ -1,63 +1,28 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Livewire;
 
-use App\Filament\Resources\ReceiptResource\Pages;
-use App\Filament\Resources\ReceiptResource\RelationManagers;
+use App\Models\Customer;
 use App\Models\Receipt;
-use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
-use Filament\Tables;
+use App\Models\Payment;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Widgets\TableWidget as BaseWidget;
 
-class ReceiptResource extends Resource
+class ReceiptTable extends BaseWidget
 {
-    protected static ?string $model = Receipt::class;
+    public $model;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
-    public static function canCreate(): bool
+    public function mount(Model $model)
     {
-        return false;
-    }
-    
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('title')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('total_amount')
-                    ->required()
-                    ->numeric()
-                    ->disabled()
-                    ->default(0.00),
-                Forms\Components\TextInput::make('amount')
-                    ->required()
-                    ->numeric()
-                    ->disabled()
-                    ->default(0.00),
-                Forms\Components\TextInput::make('discount_amount')
-                    ->required()
-                    ->numeric()
-                    ->minLength(0)
-                    ->maxValue(fn(Receipt $receipt) => $receipt->amount - $receipt->paid)
-                    ->default(0.00),
-                Forms\Components\TextInput::make('paid')
-                    ->required()
-                    ->numeric()
-                    ->default(0.00)
-                    ->disabled(),
-            ]);
+        $this->model = $model;
     }
 
-    public static function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
+            ->query(
+                Receipt::where('customer_id', $this->model->id)
+            )
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
@@ -108,27 +73,20 @@ class ReceiptResource extends Resource
                     }),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\Action::make('show')
+                        ->label('show payment')
+                        ->icon('heroicon-s-eye')
+                        ->form(fn($record) => PaymentService::showReceipt($record->receipt))
+                        ->modalCancelAction(false)
+                        ->modalSubmitAction(false),
+
+                    Tables\Actions\Action::make('create_payments')
+                        ->label('Create Payments')
+                        ->icon('heroicon-s-currency-dollar')
+                        ->form(fn($record) => PaymentService::form($record->receipt))
+                        ->action(fn($record, $data) => PaymentService::store($record->receipt, $data)),
                 ]),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
-    public static function getPages(): array
-    {
-        return [
-            'index' => Pages\ListReceipts::route('/'),
-            'create' => Pages\CreateReceipt::route('/create'),
-            'edit' => Pages\EditReceipt::route('/{record}/edit'),
-        ];
     }
 }
