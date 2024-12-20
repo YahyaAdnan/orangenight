@@ -33,6 +33,12 @@ class Customer extends Model
         return $this->belongsTo(Inventory::class);
     }
 
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+
     public function documents()
     {
         return $this->morphMany(Document::class, 'documentable');

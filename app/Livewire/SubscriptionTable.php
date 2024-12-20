@@ -33,11 +33,14 @@ class SubscriptionTable extends BaseWidget
                     ->suffix(" Days")
                     ->sortable(),
                 Tables\Columns\TextColumn::make('receipt.total_amount')
+                    ->label('total amount')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('receipt.paid')
+                    ->label('paid')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
@@ -48,10 +51,16 @@ class SubscriptionTable extends BaseWidget
                         ->modalCancelAction(false)
                         ->modalSubmitAction(false),
 
+                    Tables\Actions\Action::make('create_payments')
+                        ->label('Create Payments')
+                        ->icon('heroicon-s-currency-dollar')
+                        ->form(fn($record) => PaymentService::form($record->receipt))
+                        ->action(fn($record, $data) => PaymentService::store($record->receipt, $data)),
+                        
                     Tables\Actions\Action::make('generate_pdf')
                         ->label('Agreement PDF')
                         ->icon('heroicon-s-folder-arrow-down')
-                        ->action(fn($record) => AgreementPDF::generatePDF($record->agreement))
+                        ->action(fn($record) => AgreementPDF::generatePDF($record->agreement)),
                 ])
             ]);
     }
