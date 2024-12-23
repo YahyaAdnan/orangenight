@@ -12,6 +12,8 @@ class Item extends Model
         'sku',
         'category_id',
         'note',
+        'buying_price',
+        'selling_price',
     ];
 
     /**

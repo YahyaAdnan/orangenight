@@ -25,14 +25,23 @@ class SubscriptionResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Toggle::make('active')
+                    ->label('Active')
+                    ->default(true)
+                    ->required()
+                    ->columnSpanFull(),
+
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),       
 
-                Forms\Components\Toggle::make('active')
-                    ->label('Active')
-                    ->default(true)
+                Forms\Components\TextInput::make('price')
+                    ->label(_('price'))
+                    ->numeric(255)
+                    ->minValue(0)
+                    ->maxValue(1000000000)
                     ->required(),
+
 
                 Forms\Components\Textarea::make('description')
                     ->required()

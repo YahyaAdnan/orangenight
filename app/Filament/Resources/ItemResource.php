@@ -40,6 +40,18 @@ class ItemResource extends Resource
                 Forms\Components\TextInput::make('sku')
                     ->label('SKU')
                     ->maxLength(255),
+                Forms\Components\TextInput::make('buying_price')
+                    ->label(_('buying_price'))
+                    ->numeric(255)
+                    ->minValue(0)
+                    ->maxValue(1000000000)
+                    ->required(),
+                Forms\Components\TextInput::make('selling_price')
+                    ->label(_('selling_price'))
+                    ->numeric(255)
+                    ->minValue(0)
+                    ->maxValue(1000000000)
+                    ->required(),
                 Forms\Components\Select::make('category_id')
                     ->label('category')
                     ->searchable()
