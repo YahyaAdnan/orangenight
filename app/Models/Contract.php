@@ -11,7 +11,17 @@ class Contract extends Model
         'description',
     ];
 
-        public function terms()
+    public function isDeletable()
+    {
+        if($this->items->isNotEmpty())
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function terms()
     {
         return $this->hasMany(Term::class);
     }

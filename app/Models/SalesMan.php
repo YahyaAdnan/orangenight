@@ -34,5 +34,10 @@ class SalesMan extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function isDeletable()
+    {
+        return false;
+    }
     
 }

@@ -41,7 +41,7 @@ class SubscriptionResource extends Resource
                     ->maxLength(255),       
 
                 Forms\Components\TextInput::make('price')
-                    ->label(__('price'))
+                    ->label(__('selling_price'))
                     ->numeric(255)
                     ->minValue(0)
                     ->maxValue(1000000000)
@@ -70,7 +70,6 @@ class SubscriptionResource extends Resource
 
                 Forms\Components\Repeater::make('subscriptionTerms')
                     ->label(__('terms'))
-                    ->label('Subscription Terms') 
                     ->relationship()
                     ->reorderable(false)
                     ->schema([
@@ -138,9 +137,9 @@ class SubscriptionResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                // Tables\Actions\BulkActionGroup::make([
+                //     Tables\Actions\DeleteBulkAction::make(),
+                // ]),
             ]);
     }
 

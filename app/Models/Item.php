@@ -40,6 +40,23 @@ class Item extends Model
         return $this->hasMany(InventoryStock::class, 'item_id');
     }
 
+    public function isDeletable()
+    {
+        if($this->inventoryStocks->isNotEmpty())
+        {
+            return false;
+        }
+
+        if($this->deliveries->isNotEmpty())
+        {
+            return false;
+        }
+
+
+        return true;
+    }
+
+
 
     /**
      * Accessor to get the full image path.

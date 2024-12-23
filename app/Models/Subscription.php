@@ -16,6 +16,16 @@ class Subscription extends Model
         'price'
     ];
 
+    public function isDeletable()
+    {
+        if($this->customerSubscriptions->isNotEmpty())
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     public function contract()
     {
         return $this->belongsTo(Contract::class);
@@ -24,5 +34,10 @@ class Subscription extends Model
     public function subscriptionTerms()
     {
         return $this->hasMany(SubscriptionTerm::class);
+    }
+
+    public function customerSubscriptions()
+    {
+        return $this->hasMany(CustomerSubscription::class);
     }
 }

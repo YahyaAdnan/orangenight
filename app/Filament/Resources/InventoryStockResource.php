@@ -56,6 +56,7 @@ class InventoryStockResource extends Resource
                         Forms\Components\Select::make('model')
                             ->label(__('stock'))
                             ->native(false)
+                            ->default("1")
                             ->options([
                                 "0" => "Customer", //TODO: OPTIONS TO mylti lang 
                                 "1" => "Branch",
