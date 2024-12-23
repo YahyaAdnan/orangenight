@@ -20,20 +20,28 @@ class CustomerResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getModelLabel(): string
+    {
+        return __('customers');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('full_name')
+                    ->label(__('full_name')) 
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('address')
+                Forms\Components\TextInput::make('address') 
+                    ->label(__('address')) 
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Repeater::make('phone')
-                    ->label('phone') 
+                    ->label(__('phone')) 
                     ->schema([
                         Forms\Components\TextInput::make('phone')
+                            ->label(__('phone')) 
                             ->columnSpanFull()
                             ->telRegex('/^07[0-9]{9}$/')
                             ->required(),
@@ -41,7 +49,7 @@ class CustomerResource extends Resource
                     ->columnSpanFull()
                     ->minItems(1),
                 Forms\Components\Repeater::make('documents')
-                    ->label('documents')
+                    ->label(__('documents')) 
                     ->relationship()
                     ->schema([
                         Forms\Components\Grid::make([
@@ -51,15 +59,18 @@ class CustomerResource extends Resource
                         ])
                         ->schema([
                             Forms\Components\TextInput::make('title')
+                                ->label(__('title')) 
                                 ->maxLength(32)
                                 ->required(),
                             Forms\Components\FileUpload::make('image')
+                                ->label(__('image')) 
                                 ->required()
                                 ->image()
                         ])
                     ])
                     ->columnSpanFull(),
                 Forms\Components\Textarea::make('note')
+                    ->label(_('note'))
                     ->columnSpanFull(),
             ]);
     }
@@ -69,16 +80,16 @@ class CustomerResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('full_name')
+                    ->label(__('full_name')) 
                     ->searchable(),
                 Tables\Columns\TextColumn::make('inventory_id')
+                    ->label(__('inventory_id')) 
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\ImageColumn::make('signature'),
+                Tables\Columns\ImageColumn::make('signature')
+                    ->label(__('signature')),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                    ->label(__('created_at')) 
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

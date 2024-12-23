@@ -41,7 +41,7 @@ class SubscriptionForm
             ])
             ->schema([
                 Components\Select::make('subscription_id')
-                    ->label('subscription')
+                    ->label(__('subscription'))
                     ->options(Subscription::pluck('title', 'id'))
                     ->searchable()
                     ->required()
@@ -55,7 +55,7 @@ class SubscriptionForm
                 Components\Grid::make(2)->schema(
                         fn (Get $get) => [
                             Components\TextInput::make('contract')
-                                ->label('contract')
+                                ->label(__('contract'))
                                 ->disabled()
                                 ->default($get('subscription_id') ? Subscription::find($get('subscription_id'))->contract->title : '')
                                 ->hidden(is_null($get('subscription_id')))
@@ -88,13 +88,16 @@ class SubscriptionForm
                     'md' => 2,
                 ])->schema([
                     Components\Select::make('customer_id')
+                        ->label(__('customer'))
                         ->options($customers)
                         ->required()
                         ->searchable(),
                 ]),
                 SignaturePad::make('customer_signature')
+                    ->label(__('customer_signature'))
                     ->hideDownloadButtons(),
-                SignaturePad::make('salesman_signature')
+                SignaturePad::make('salesman_signature')   
+                    ->label(__('salesman_signature'))
                     ->hideDownloadButtons()
             ]);
     }
@@ -110,7 +113,7 @@ class SubscriptionForm
         foreach ($contract->terms as $key => $term) 
         {
             $termsComponents[] = Components\TextInput::make('term' . $key)
-                                    ->label('term ' . $key+1)
+                                    ->label(__('term') . ' ' .$key+1)
                                     ->disabled()
                                     ->default($term->title);
 

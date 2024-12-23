@@ -20,6 +20,10 @@ class InventoryMovementResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getModelLabel(): string
+    {
+        return __('inventory_movements');
+    }
     public static function canCreate(): bool
     {
         return false;
@@ -29,26 +33,33 @@ class InventoryMovementResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('type'),
+                Tables\Columns\TextColumn::make('type')
+                    ->label(__('type')),
                 Tables\Columns\TextColumn::make('item.title')
+                    ->label(__('item'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('fromInventory.title')
+                    ->label(__('from'))
                     ->badge()
                     ->color('danger')
                     ->sortable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('toInventory.title')
+                    ->label(__('to'))
                     ->badge()
                     ->color('success')
                     ->sortable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('quantity')
+                    ->label(__('quantity'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('user.name')
+                    ->label(__('full_name'))
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label(__('created_at'))
                     ->dateTime('Y-m-d h:ia')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -66,8 +77,8 @@ class InventoryMovementResource extends Resource
 
                 Tables\Filters\Filter::make('created_at')
                     ->form([
-                        Forms\Components\DatePicker::make('created_from'),
-                        Forms\Components\DatePicker::make('created_until')
+                        Forms\Components\DatePicker::make(_('created_from')),
+                        Forms\Components\DatePicker::make(_('created_until'))
                             ->default(now()),
                     ])
                     ->query(function (Builder $query, array $data): Builder{

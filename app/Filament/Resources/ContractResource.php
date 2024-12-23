@@ -19,24 +19,33 @@ class ContractResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getModelLabel(): string
+    {
+        return __('contracts');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('title')
+                    ->label(__('title'))
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Textarea::make('description')
+                    ->label(__('description'))
                     ->columnSpanFull(),
                 Forms\Components\Repeater::make('terms')
-                    ->label('terms') 
+                    ->label(__('terms'))
                     ->relationship()
                     ->reorderable(false)
                     ->schema([
                         Forms\Components\TextInput::make('title')
+                            ->label(__('title'))
                             ->required()
                             ->maxLength(255),
                         Forms\Components\Textarea::make('description')
+                            ->label(__('description'))   
                             ->columnSpanFull(),
                     ])
                     ->columnSpanFull()
@@ -48,12 +57,10 @@ class ContractResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title')
+                    ->label(__('title'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                    ->label(__('created_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

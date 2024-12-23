@@ -19,11 +19,15 @@ class PaymentResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     
+    public static function getModelLabel(): string
+    {
+        return __('payments'); 
+    }
+
     public static function canCreate(): bool
     {
         return false;
     }
-
 
     public static function form(Form $form): Form
     {
@@ -38,27 +42,31 @@ class PaymentResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('customer_id')
+                Tables\Columns\TextColumn::make('customer.full_name')
+                    ->label(__('customer'))
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('receipt_id')
+                Tables\Columns\TextColumn::make('receipt.title')
+                    ->label(__('receipt'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('total_amount')
+                    ->label(__('total_amount'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('paid')
+                    ->label(__('paid'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('returned')
+                    ->label(__('returned'))
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('note'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
+                Tables\Columns\TextColumn::make('note')
+                    ->label(__('note'))
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label(__('created_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -66,8 +74,10 @@ class PaymentResource extends Resource
             ->filters([
                 Tables\Filters\Filter::make('created_at')
                     ->form([
-                        Forms\Components\DatePicker::make('created_from'),
+                        Forms\Components\DatePicker::make('created_from')
+                            ->label(__('from')),
                         Forms\Components\DatePicker::make('created_until')
+                            ->label(__('to'))
                             ->default(now()),
                     ])
                     ->query(function (Builder $query, array $data): Builder{

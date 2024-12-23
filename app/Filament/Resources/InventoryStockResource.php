@@ -23,6 +23,11 @@ class InventoryStockResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getModelLabel(): string
+    {
+        return __('stocks');
+    }
+
     public static function canCreate(): bool
     {
         return false;
@@ -33,11 +38,14 @@ class InventoryStockResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('inventory.title')
+                    ->label(__('stock'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('item.title')
+                    ->label(__('item'))
                     ->sortable(),
                 Tables\Columns\TextColumn::make('quantity')
+                    ->label(__('quantity'))
                     ->numeric()
                     ->sortable(),
             ])
@@ -46,6 +54,7 @@ class InventoryStockResource extends Resource
                     ->label('')
                     ->form([
                         Forms\Components\Select::make('model')
+                            ->label(__('stock'))
                             ->native(false)
                             ->options([
                                 "0" => "Customer", //TODO: OPTIONS TO mylti lang 

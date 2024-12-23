@@ -33,29 +33,34 @@ class CustomerSubscriptionResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('customer.full_name')
+                    ->label(__('full_name'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('subscription.title')
+                    ->label(__('subscription'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\IconColumn::make('active')
+                    ->label(__('active'))
                     ->boolean(),
                 Tables\Columns\TextColumn::make('duration')
+                    ->label(__('duration'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label(__('created_at'))
                     ->dateTime('d/m/Y')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('subscription_id')
-                    ->label('subscription')
+                    ->label(__('subscription'))
                     ->multiple()
                     ->options(Subscription::pluck('title', 'id')),
 
                 Tables\Filters\SelectFilter::make('customer_id')
-                    ->label('Customers')
+                    ->label(__('Customers'))
                     ->multiple()
                     ->options(Customer::pluck('full_name', 'id')),
             ])

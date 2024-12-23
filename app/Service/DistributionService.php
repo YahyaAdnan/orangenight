@@ -20,11 +20,13 @@ class DistributionService
                 'md' => 2
             ])
             ->schema([
-                Components\Select::make('inventory_id')
+                Components\Select::make('sales_man')
+                    ->label(__('sales_man'))
                     ->required()
                     ->searchable()
                     ->options(SalesMan::pluck('full_name', 'inventory_id')),
                 Components\TextInput::make('quantity')
+                    ->label(__('quantity'))
                     ->minValue(1)
                     ->maxValue($record->quantity)
                     ->numeric()

@@ -28,16 +28,18 @@ class SubscriptionTable extends BaseWidget
             )
             ->columns([
                 Tables\Columns\TextColumn::make('subscription.title')
+                    ->label(__('subscription'))
                     ->sortable(),
                 Tables\Columns\TextColumn::make('duration')
+                    ->label(__('duration'))
                     ->suffix(" Days")
                     ->sortable(),
                 Tables\Columns\TextColumn::make('receipt.total_amount')
-                    ->label('total amount')
+                    ->label(__('total_amount'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('receipt.paid')
-                    ->label('paid')
+                    ->label(__('paid'))
                     ->numeric()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -45,20 +47,20 @@ class SubscriptionTable extends BaseWidget
             ->actions([
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\Action::make('show')
-                        ->label('show payment')
+                        ->label(__('show') . ' ' . __('payments'))
                         ->icon('heroicon-s-eye')
                         ->form(fn($record) => PaymentService::showReceipt($record->receipt))
                         ->modalCancelAction(false)
                         ->modalSubmitAction(false),
 
                     Tables\Actions\Action::make('create_payments')
-                        ->label('Create Payments')
+                        ->label(__('create') . ' ' . __('payments'))
                         ->icon('heroicon-s-currency-dollar')
                         ->form(fn($record) => PaymentService::form($record->receipt))
                         ->action(fn($record, $data) => PaymentService::store($record->receipt, $data)),
                         
                     Tables\Actions\Action::make('generate_pdf')
-                        ->label('Agreement PDF')
+                        ->label('PDF')
                         ->icon('heroicon-s-folder-arrow-down')
                         ->action(fn($record) => AgreementPDF::generatePDF($record->agreement)),
                 ])

@@ -32,40 +32,43 @@ class InventoryStock extends BaseWidget
             )
             ->columns([
                 Tables\Columns\TextColumn::make('item.title')
+                    ->label(__('item'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('inventory.title')
+                    ->label(__('title'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('quantity')
+                    ->label(__('quantity'))
                     ->numeric()
                     ->sortable(),
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\Action::make('move')
-                        ->label('move')
+                        ->label(__('move'))
                         ->icon('heroicon-s-truck')
                         ->form(fn($record) => MovingService::form($record))
                         ->action(fn(InvSk $invSk, $data) => MovingService::store($invSk, $data))
                         ->hidden(fn() => in_array($this->class, ['Customer'])),
 
                     Tables\Actions\Action::make('distribution')
-                        ->label('distribution')
+                        ->label(__('distribution'))
                         ->icon('heroicon-s-user')
                         ->form(fn($record) => DistributionService::form($record))
                         ->action(fn(InvSk $invSk, $data) => DistributionService::store($invSk, $data))
-                        ->hidden(fn() => in_array($this->class, ['Customer', 'Branch'])),
+                        ->hidden(fn() => !in_array($this->class, ['Branch'])),
 
                     Tables\Actions\Action::make('delete')
-                        ->label('delete')
+                        ->label(__('delete'))
                         ->icon('heroicon-s-trash')
                         ->form(fn($record) => DeleteService::form($record))
                         ->action(fn(InvSk $invSk, $data) => DeleteService::store($invSk, $data))
                         ->hidden(fn() => in_array($this->class, ['Customer', 'SalesMan'])),
 
                     Tables\Actions\Action::make('refund')
-                        ->label('refund')
+                        ->label(__('refund'))
                         ->icon('heroicon-s-arrow-left-end-on-rectangle')
                         ->form(fn($record) => RefundService::form($record))
                         ->action(fn(InvSk $invSk, $data) => RefundService::store($invSk, $data))

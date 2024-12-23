@@ -21,6 +21,7 @@ class DeliveryService
                     ->hideDownloadButtons()
                     ->columnSpanFull(),
             Components\TextInput::make('note')
+                ->label(__('note'))
                 ->maxLength(64),
         ];
     }

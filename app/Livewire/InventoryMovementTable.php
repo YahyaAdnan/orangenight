@@ -28,48 +28,59 @@ class InventoryMovementTable extends BaseWidget
                     ->orWhere('to_inventory_id', $this->inventory->id)
             )
             ->columns([
-                Tables\Columns\TextColumn::make('type'),
+                Tables\Columns\TextColumn::make('type')
+                    ->label(__('type')),
                 Tables\Columns\TextColumn::make('item.title')
+                    ->label(__('item'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('fromInventory.title')
+                    ->label(__('from'))
                     ->badge()
                     ->color('danger')
                     ->sortable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('toInventory.title')
+                    ->label(__('to'))
                     ->badge()
                     ->color('success')
                     ->sortable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('quantity')
+                    ->label(__('quantity'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('user.name')
+                    ->label(__('sales_man'))
                     ->sortable(),
                 Tables\Columns\TextColumn::make('note')
+                    ->label(__('note'))
                     ->wrap()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label(__('created_at'))
                     ->dateTime('Y-m-d h:ia')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('type')
+                    ->label(__('type'))
                     ->multiple()
                     ->options([
-                        'move' => 'Move',
-                        'sold' => 'Sold',
-                        'import' => 'Import',
-                        'distribution' => 'Distribution',
-                        'Delete' => 'Delete',
+                        'move' => __('move'),
+                        'sold' => __('sold'),
+                        'import' => __('import'),
+                        'distribution' => __('distribution'),
+                        'Delete' => __('delete'),
                     ]),
 
                 Tables\Filters\Filter::make('created_at')
                     ->form([
-                        Forms\Components\DatePicker::make('created_from'),
+                        Forms\Components\DatePicker::make('created_from')
+                            ->label(__('from')),
                         Forms\Components\DatePicker::make('created_until')
+                            ->label(__('to'))
                             ->default(now()),
                     ])
                     ->query(function (Builder $query, array $data): Builder{

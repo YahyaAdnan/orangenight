@@ -21,6 +21,7 @@ class MovingService
             ])
             ->schema([
                 Components\Select::make('inventory_id')
+                    ->label(__('inventory'))         
                     ->required()
                     ->searchable()
                     ->options(Branch::whereNot('inventory_id', $record->inventory_id)->pluck('title', 'inventory_id')),

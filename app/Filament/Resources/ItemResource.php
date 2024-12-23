@@ -21,7 +21,7 @@ class ItemResource extends Resource
 
     public static function getModelLabel(): string
     {
-        return __('Item'); 
+        return __('items'); 
     }
     
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
@@ -31,33 +31,36 @@ class ItemResource extends Resource
         return $form
             ->schema([
                 Forms\Components\FileUpload::make('image')
+                    ->label(__('image'))
                     ->image()
                     ->columnSpanFull()
                     ->required(),
                 Forms\Components\TextInput::make('title')
+                    ->label(__('title'))
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('sku')
                     ->label('SKU')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('buying_price')
-                    ->label(_('buying_price'))
+                    ->label(__('buying_price'))
                     ->numeric(255)
                     ->minValue(0)
                     ->maxValue(1000000000)
                     ->required(),
                 Forms\Components\TextInput::make('selling_price')
-                    ->label(_('selling_price'))
+                    ->label(__('selling_price'))
                     ->numeric(255)
                     ->minValue(0)
                     ->maxValue(1000000000)
                     ->required(),
                 Forms\Components\Select::make('category_id')
-                    ->label('category')
+                    ->label(__('category'))
                     ->searchable()
                     ->required()
                     ->options(Category::pluck('title', 'id')),
                 Forms\Components\TextInput::make('note')
+                    ->label(__('note'))
                     ->maxLength(255),
             ]);
     }
@@ -66,22 +69,24 @@ class ItemResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('image'),
+                Tables\Columns\ImageColumn::make('image')
+                    ->label(__('image')),
                 Tables\Columns\TextColumn::make('title')
+                    ->label(__('title'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('sku')
                     ->label('SKU')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('category_id')
+                    ->label(__('category'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('note')
+                    ->label(__('note'))
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                    ->label(__('created_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

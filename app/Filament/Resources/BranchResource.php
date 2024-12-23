@@ -20,15 +20,20 @@ class BranchResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getModelLabel(): string
+    {
+        return __('branches');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('title')
+                    ->label(__('title'))
                     ->minLength(4)
                     ->maxLength(32)
                     ->required(),
-                SignaturePad::make('my_signature'),
             ]);
     }
 
@@ -37,6 +42,7 @@ class BranchResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title')
+                    ->label(__('title'))
                     ->sortable()
                     ->searchable()
             ])

@@ -21,12 +21,17 @@ class SubscriptionResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getModelLabel(): string
+    {
+        return __('subscription'); 
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\Toggle::make('active')
-                    ->label('Active')
+                    ->label(__('active'))
                     ->default(true)
                     ->required()
                     ->columnSpanFull(),
@@ -36,7 +41,7 @@ class SubscriptionResource extends Resource
                     ->maxLength(255),       
 
                 Forms\Components\TextInput::make('price')
-                    ->label(_('price'))
+                    ->label(__('price'))
                     ->numeric(255)
                     ->minValue(0)
                     ->maxValue(1000000000)
@@ -44,10 +49,12 @@ class SubscriptionResource extends Resource
 
 
                 Forms\Components\Textarea::make('description')
+                    ->label(__('description'))
                     ->required()
                     ->columnSpanFull(),
 
                 Forms\Components\TextInput::make('duration')
+                    ->label(__('duration'))
                     ->minValue(7)
                     ->maxValue(730)
                     ->required()
@@ -56,11 +63,13 @@ class SubscriptionResource extends Resource
                     ->live(),
 
                 Forms\Components\Select::make('contract_id')
+                    ->label(__('contract'))
                     ->required()
                     ->searchable()
                     ->options(Contract::pluck('title', 'id')),
 
                 Forms\Components\Repeater::make('subscriptionTerms')
+                    ->label(__('terms'))
                     ->label('Subscription Terms') 
                     ->relationship()
                     ->reorderable(false)
@@ -72,17 +81,20 @@ class SubscriptionResource extends Resource
                         ])
                         ->schema([
                             Forms\Components\Select::make('item_id')
+                                ->label(__('item'))
                                 ->required()
                                 ->searchable()
                                 ->options(Item::pluck('title', 'id')),
 
                             Forms\Components\TextInput::make('quantity')
+                                ->label(__('quantity'))
                                 ->minValue(1)
                                 ->maxValue(1000)
                                 ->required()
                                 ->numeric(),
 
                             Forms\Components\TextInput::make('day')
+                                ->label(__('day'))
                                 ->required()
                                 ->numeric()
                                 ->minValue(1)
@@ -101,18 +113,18 @@ class SubscriptionResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title')
+                    ->label(__('title'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('duration')
+                    ->label(__('duration'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('contract_id')
+                    ->label(__('contract'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                    ->label(__('created_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

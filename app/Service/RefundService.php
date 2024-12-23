@@ -22,15 +22,18 @@ class RefundService
             ->schema([
                 // TODO: make it take a default one, if admin select, if not contant
                 Components\Select::make('inventory_id')
+                    ->label(__('sales_man'))
                     ->required()
                     ->searchable()
                     ->options(SalesMan::pluck('full_name', 'inventory_id')),
                 Components\TextInput::make('quantity')
+                    ->label(__('quantity'))
                     ->minValue(1)
                     ->maxValue($record->quantity)
                     ->numeric()
                     ->required(),
                 Components\TextInput::make('note')
+                    ->label(__('note'))
                     ->maxLength(64)
                     ->required()
                     ->columnSpanFull()

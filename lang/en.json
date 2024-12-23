@@ -1,4 +1,6 @@
 {
+    "sales_men" : "salesmen",
+    "sales_man" : "salesman",
     "agreements" : "Agreements",
     "agreement" : "Agreement",
     "customers" : "Customers",

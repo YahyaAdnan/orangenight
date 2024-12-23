@@ -21,15 +21,17 @@ class DeleteService
             ])
             ->schema([
                 Components\TextInput::make('item')
-                    ->label('item')
+                    ->label(__('item'))
                     ->default($record->item->title)
                     ->disabled(),
                 Components\TextInput::make('quantity')
+                    ->label(__('quantity'))
                     ->minValue(1)
                     ->maxValue($record->quantity)
                     ->numeric()
                     ->required(),
                 Components\TextInput::make('note')
+                    ->label(__('note'))
                     ->maxLength(64)
                     ->required()
                     ->columnSpanFull()

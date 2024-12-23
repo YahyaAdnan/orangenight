@@ -32,13 +32,16 @@ class ImportService
                         $bulk ? Components\Hidden::make('item_id') 
                             :   Components\Select::make('item_id')
                                     ->options(Item::pluck('title', 'id'))
+                                    ->label(__('item'))         
                                     ->searchable()
                                     ->required()
                                     ->disableOptionsWhenSelectedInSiblingRepeaterItems(),
                         Components\TextInput::make('title')
+                            ->label(__('title'))         
                             ->disabled()
                             ->hidden(!$bulk),
                         Components\TextInput::make('quantity')
+                            ->label(__('quantity'))         
                             ->required()
                             ->numeric(),
                     ])

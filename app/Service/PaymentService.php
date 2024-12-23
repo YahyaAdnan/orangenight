@@ -62,7 +62,7 @@ class PaymentService
         // 'returned',
         return [
             Components\TextInput::make('required_amount')
-                        ->label('Remain Amount')
+                        ->label(__('total_amount'))
                         ->default($receipt->total_amount - $receipt->paid)
                         ->disabled(),
             Components\Grid::make([
@@ -71,19 +71,20 @@ class PaymentService
             ])
                 ->schema([
                     Components\TextInput::make('total_amount')
-                        ->label('total')
+                        ->label(__('amount'))
                         ->numeric()
                         ->default($receipt->total_amount - $receipt->paid)
                         ->minValue(1)
                         ->maxValue($receipt->total_amount - $receipt->paid)
                         ->live(),
                     Components\TextInput::make('paid')
-                        ->label('paid')
+                        ->label(__('paid'))
                         ->numeric()
                         ->minValue(fn(Get $get) => $get('total_amount'))
                         ->live(),
                 ]),
             Forms\Components\TextInput::make('note')
+                ->label(__('note'))
                 ->maxLength(255),
         ];
     }
@@ -95,7 +96,7 @@ class PaymentService
             'receipt_id' => $receipt->id,
             'total_amount' => $data['total_amount'],
             'paid' => $data['paid'],
-            'returned' => $data['total_amount'] - $data['paid'],
+            'returned' => $data['paid'] - $data['total_amount'],
             'note' => $data['note']
         ]);
 

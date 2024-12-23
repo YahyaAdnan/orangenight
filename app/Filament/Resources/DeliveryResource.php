@@ -21,6 +21,11 @@ class DeliveryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getModelLabel(): string
+    {
+        return __('delivery');
+    }
+
     public static function canCreate(): bool
     {
         return false;
@@ -31,43 +36,46 @@ class DeliveryResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('customer.full_name')
+                    ->label(__('full_name'))
                     ->searchable()
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('item.title')
+                    ->label(__('item'))
                     ->searchable()
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('quantity')
+                    ->label(__('quantity'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('date')
+                    ->label(__('date'))
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status')
+                    ->label(__('status'))
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'pending' => 'warning',
                         'cancel' => 'danger', //TODO: make it canceled
                         'delivered' => 'success',
-                    }),
+                    })
+                    ->formatStateUsing(fn (string $state) => __($state)),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                    ->label(__('created_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('item_id')
-                    ->label('Items')
+                    ->label(__('items'))
                     ->multiple()
                     ->options(Item::pluck('title', 'id')),
 
                 Tables\Filters\SelectFilter::make('customer_id')
-                    ->label('Customers')
+                    ->label(__('customers'))
                     ->multiple()
                     ->options(Customer::pluck('full_name', 'id')),
 
@@ -75,10 +83,10 @@ class DeliveryResource extends Resource
                     ->label('')
                     ->form([
                         Forms\Components\DatePicker::make('created_from')
-                            ->label('From'),
+                            ->label(__('From')),
                         Forms\Components\DatePicker::make('created_until')
                             ->default(now())
-                            ->label('until'),
+                            ->label(__('until')),
                     ])
                     ->query(function (Builder $query, array $data): Builder{
                         if (!empty($data['created_from'])) {

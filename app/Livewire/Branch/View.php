@@ -13,7 +13,7 @@ class View extends Component
     {
         $this->branch = $branch;
         $this->selected_nav = 0;
-        $this->navigators = array('Stock', 'Inventory Movement');
+        $this->navigators = array(__('stocks'), __('inventory_movements'));
     }
 
 

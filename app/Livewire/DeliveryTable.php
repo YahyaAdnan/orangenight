@@ -27,28 +27,32 @@ class DeliveryTable extends BaseWidget
             )
             ->columns([
                 Tables\Columns\TextColumn::make('item.title')
-                    ->searchable()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('deliverable.title')
+                    ->label(__('item'))
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('quantity')
+                    ->label(__('quantity'))
                     ->sortable(),
                 Tables\Columns\TextColumn::make('date')
+                    ->label(__('date'))
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status')
+                    ->label(__('status'))
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'pending' => 'warning',
                         'cancel' => 'danger', //TODO: make it canceled
                         'delivered' => 'success',
                     })
+                    ->formatStateUsing(fn($state) => __($state))
                     ->sortable(),
                 Tables\Columns\ImageColumn::make('signature')
+                    ->label(__('status'))
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
+                    ->label(__('status'))
                     ->multiple()
                     ->options([
                         'pending' => 'pending',
@@ -60,13 +64,13 @@ class DeliveryTable extends BaseWidget
             ->actions([
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\Action::make('move')
-                        ->label('move')
+                        ->label(__('move'))
                         ->icon('heroicon-s-truck')
                         ->form(fn($record) => DeliveryService::form($record))
                         ->action(fn(Delivery $record, $data) => DeliveryService::store($record, $data))
                         ->disabled(fn($record) => !DeliveryService::deliverable($record)),
                     Tables\Actions\Action::make('cancel')
-                        ->label('cancel')
+                        ->label(__('cancel'))
                         ->icon('heroicon-s-backspace')
                         ->action(fn(Delivery $record, $data) => CancelDeliveryService::store($record))
                         ->disabled(fn($record) => !CancelDeliveryService::cancelable($record))

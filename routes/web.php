@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/test', function () {
+    App::setLocale('ar');
+
+    echo __('agreements');
 });
 
 Route::get('test/{agreement}', function (App\Models\Agreement $agreement) {

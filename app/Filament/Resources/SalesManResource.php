@@ -19,6 +19,11 @@ class SalesManResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getModelLabel(): string
+    {
+        return __('sales_man'); 
+    }
+
     public static function form(Form $form): Form
     {
         // 'full_name', 
@@ -30,34 +35,35 @@ class SalesManResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('full_name')
-                    ->label('full_name')
+                    ->label(__('full_name'))
                     ->minLength(4)
                     ->maxLength(32)
                     ->required(),
                 Forms\Components\TextInput::make('user_name')
-                    ->label('user_name')
+                    ->label(__('username'))
                     ->suffix("@ayman.electronics")
                     ->minLength(4)
                     ->maxLength(32)
                     ->required()
                     ->visibleOn('create'),
                 Forms\Components\TextInput::make('password')
-                    ->label('password')
+                    ->label(__('password'))
                     ->password()
                     ->minLength(6)
                     ->maxLength(32)
                     ->required()
                     ->visibleOn('create'),
                 Forms\Components\TextInput::make('note')
-                    ->label('note') 
+                    ->label(__('note'))
                     ->maxLength(64),
                 Forms\Components\Repeater::make('phone')
-                    ->label('phone') 
+                    ->label(__('phone')) 
                     ->schema([
                         Forms\Components\TextInput::make('phone')
+                            ->label(__('phone')) 
                             ->columnSpanFull()
-                            ->telRegex('/^07[0-9]{9}$/')
-                            ->required(),
+                            ->required()
+                            ->rule('regex:/^07\d{9}$/'), //IRAQ NUMBER ONLY.
                     ])
                     ->minItems(1),
                     //TODO: MAKE DELETE DISABLED.
@@ -68,10 +74,9 @@ class SalesManResource extends Resource
     {
         return $table
             ->columns([
-                //
-            ])
-            ->filters([
-                //
+                Tables\Columns\TextColumn::make('full_name')
+                    ->label(__('full_name')) 
+                    ->searchable(),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
