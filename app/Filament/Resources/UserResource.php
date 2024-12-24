@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
+use App\Service\PasswordService;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -32,6 +33,10 @@ class UserResource extends Resource
                     ->email()
                     ->required()
                     ->maxLength(255),
+                    Forms\Components\Select::make('roles')
+                    ->multiple()
+                    ->columnSpanFull()
+                    ->relationship('roles', 'name'),
             ]);
     }
 
@@ -55,6 +60,12 @@ class UserResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('reset_password')
+                        ->label(__('reset_password'))
+                        ->icon('heroicon-s-lock-closed')
+                        ->form(fn($record) => PasswordService::form())
+                        ->action(fn($record, $data) => PasswordService::reset($record, $data))
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
