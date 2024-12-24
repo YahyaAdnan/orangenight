@@ -38,7 +38,12 @@ class Customer extends Model
         return $this->hasMany(Payment::class);
     }
 
-
+    public function salesMen()
+    {
+        return $this->belongsToMany(SalesMan::class, 'customer_salesman', 'customer_id', 'salesman_id');
+    }
+    
+    
     public function documents()
     {
         return $this->morphMany(Document::class, 'documentable');

@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('customer_salesman', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id')->constrained()->onDelete('cascade'); // Foreign key to customers table
-            $table->foreignId('salesman_id')->constrained()->onDelete('cascade'); // Foreign key to salesmen table
+            $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('salesman_id');
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
+            $table->foreign('salesman_id')->references('id')->on('sales_men')->onDelete('cascade');
             $table->timestamps();
         });
+        
     }
     
     public function down()

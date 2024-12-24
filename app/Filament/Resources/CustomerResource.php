@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CustomerResource\Pages;
 use App\Filament\Resources\CustomerResource\RelationManagers;
 use App\Models\Customer;
+use App\Models\SalesMan;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -69,6 +70,11 @@ class CustomerResource extends Resource
                         ])
                     ])
                     ->columnSpanFull(),
+                Forms\Components\Select::make('salesMen')
+                    ->label(__('sales_men'))
+                    ->multiple()
+                    ->options(SalesMan::pluck('full_name', 'id'))
+                    ->columnSpanFull(),
                 Forms\Components\Textarea::make('note')
                     ->label(_('note'))
                     ->columnSpanFull(),
@@ -82,22 +88,14 @@ class CustomerResource extends Resource
                 Tables\Columns\TextColumn::make('full_name')
                     ->label(__('full_name')) 
                     ->searchable(),
-                Tables\Columns\TextColumn::make('inventory_id')
-                    ->label(__('inventory_id')) 
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\ImageColumn::make('signature')
-                    ->label(__('signature')),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__('created_at')) 
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([
-                //
-            ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([

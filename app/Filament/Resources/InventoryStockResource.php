@@ -92,6 +92,7 @@ class InventoryStockResource extends Resource
                         if (!empty($data['inventory_id'])) {
                             $query->where('inventory_id', $data['inventory_id']);
                         }
+
     
                         return $query;
                     }),

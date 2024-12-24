@@ -49,6 +49,6 @@ class User extends Authenticatable
 
     public function salesMan()
     {
-        return $this->hasMany(SalesMan::class)->first();
+        return $this->hasOne(SalesMan::class);
     }
 }

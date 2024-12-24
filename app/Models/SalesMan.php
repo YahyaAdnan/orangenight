@@ -35,6 +35,12 @@ class SalesMan extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function customers()
+    {
+        return $this->belongsToMany(Customer::class, 'customer_salesman', 'salesman_id', 'customer_id');
+    }
+
+
     public function isDeletable()
     {
         return false;

@@ -3,9 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function () {
-    App::setLocale('ar');
-
-    echo __('agreements');
+    // dd($customerDetails = auth()->user()->salesMan->customers->pluck('id'));
 });
 
 Route::get('test/{agreement}', function (App\Models\Agreement $agreement) {
