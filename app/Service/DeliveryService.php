@@ -31,7 +31,12 @@ class DeliveryService
         if($delivery->status == 'delivered') {return false;}
         #TODO: if admin then all employees.
         $salesMan = SalesMan::where('user_id', Auth::id())->first();
-        $stock = $salesMan->inventory->inventoryStock->where('item_id', $delivery->item_id)->first();
+
+        try {
+            $stock = $salesMan->inventory->inventoryStock->where('item_id', $delivery->item_id)->first();
+        } catch (\Throwable $th) {
+            return false;
+        }
 
         //TODO: show all if admin
         if($stock == null) {return false;}
