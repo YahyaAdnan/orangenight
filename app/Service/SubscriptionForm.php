@@ -18,9 +18,20 @@ use Illuminate\Support\Facades\Auth;
 class SubscriptionForm
 {
 
-    public static function form()
+    public static function form(?Customer $customer = null)
     {
-        $customers = Customer::pluck('full_name', 'id'); // TODO: make it show for sales man only his customers.
+         // TODO: make it show for sales man only his customers.
+
+        try {
+            $customers = auth()->user()->salesMan->customers->pluck('full_name', 'id');
+        } catch (\Throwable $th) {
+            $customers = Customer::pluck('full_name', 'id');
+        }
+
+        if($customer)
+        {
+            $customers = Customer::where('id', $customer)->get();
+        }
 
         return [
             SubscriptionForm::selectSubscription(),
