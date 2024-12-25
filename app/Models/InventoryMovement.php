@@ -26,14 +26,20 @@ class InventoryMovement extends Model
             $model->user_id = Auth::id();
         });
     }
-
-    // Type constants for readability
-    const TYPE_MOVE = 'move';
-    const TYPE_SOLD = 'sold';
-    const TYPE_IMPORT = 'import';
-    const TYPE_DISTRIBUTION = 'distribution';
-    const TYPE_DELETE = 'delete';
-
+    public static function statuses()
+    {
+        return [
+            'move' => __('move'),
+            'sold' => __('sold'),
+            'import' => __('import'),
+            'destruction' => __('destruction'),
+            'delete' => __('delete'),
+            'distribution' => __('distribution'),
+            'delivery' => __('delivery'),
+            'refund' => __('refund'),
+        ];
+    }
+    
     public function item()
     {
         return $this->belongsTo(Item::class);

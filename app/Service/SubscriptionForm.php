@@ -20,8 +20,6 @@ class SubscriptionForm
 
     public static function form(?Customer $customer = null)
     {
-         // TODO: make it show for sales man only his customers.
-
         try {
             $customers = auth()->user()->salesMan->customers->pluck('full_name', 'id');
         } catch (\Throwable $th) {

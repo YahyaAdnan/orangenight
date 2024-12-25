@@ -41,7 +41,7 @@ class DeliveryTable extends BaseWidget
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'pending' => 'warning',
-                        'cancel' => 'danger', //TODO: make it canceled
+                        'cancel' => 'danger', 
                         'delivered' => 'success',
                     })
                     ->formatStateUsing(fn($state) => __($state))
@@ -56,7 +56,7 @@ class DeliveryTable extends BaseWidget
                     ->multiple()
                     ->options([
                         'pending' => 'pending',
-                        'cancel' => 'cancel', //TODO: change.
+                        'cancel' => 'cancel',
                         'delivered' => 'delivered',
                     ])
                     ->default(['pending'])

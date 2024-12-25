@@ -58,7 +58,7 @@ class DeliveryResource extends Resource
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'pending' => 'warning',
-                        'cancel' => 'danger', //TODO: make it canceled
+                        'cancel' => 'danger',
                         'delivered' => 'success',
                     })
                     ->formatStateUsing(fn (string $state) => __($state)),

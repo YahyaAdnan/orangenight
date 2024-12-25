@@ -15,7 +15,6 @@ class DeliveryService
 
     public static function form($record)
     {
-        #TODO: if admin, then show all inventory_id of stocks that match.
         return [
             SignaturePad::make('signature')
                     ->hideDownloadButtons()
@@ -29,7 +28,7 @@ class DeliveryService
     public static function deliverable(Delivery $delivery)
     {
         if($delivery->status == 'delivered') {return false;}
-        #TODO: if admin then all employees.
+
         $salesMan = SalesMan::where('user_id', Auth::id())->first();
 
         try {
@@ -38,7 +37,6 @@ class DeliveryService
             return false;
         }
 
-        //TODO: show all if admin
         if($stock == null) {return false;}
 
         return $stock->quantity >= $delivery->quantity;

@@ -20,7 +20,6 @@ class RefundService
                 'md' => 2
             ])
             ->schema([
-                // TODO: make it take a default one, if admin select, if not contant
                 Components\Select::make('inventory_id')
                     ->label(__('sales_man'))
                     ->required()

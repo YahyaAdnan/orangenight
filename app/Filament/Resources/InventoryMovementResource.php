@@ -34,7 +34,8 @@ class InventoryMovementResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('type')
-                    ->label(__('type')),
+                    ->label(__('type'))
+                    ->formatStateUsing(fn (string $state): string => __("$state")),
                 Tables\Columns\TextColumn::make('item.title')
                     ->label(__('item'))
                     ->numeric()
@@ -67,14 +68,7 @@ class InventoryMovementResource extends Resource
             ->filters([
                 Tables\Filters\SelectFilter::make('type')
                     ->multiple()
-                    ->options([
-                        'move' => 'Move',
-                        'sold' => 'Sold',
-                        'import' => 'Import',
-                        'distribution' => 'Distribution',
-                        'Delete' => 'Delete',//TODO: ADD all others.
-                    ]),
-
+                    ->options(InventoryMovement::statuses()),
                 Tables\Filters\Filter::make('created_at')
                     ->form([
                         Forms\Components\DatePicker::make(_('created_from')),

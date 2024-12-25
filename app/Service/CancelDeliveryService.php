@@ -20,7 +20,7 @@ class CancelDeliveryService
 
     public static function store(Delivery $delivery)
     {
-        $delivery->status = 'cancel'; //TODO: make it canceled.
+        $delivery->status = 'cancel'; 
         $delivery->save();
 
         return $delivery;
