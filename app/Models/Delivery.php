@@ -23,11 +23,11 @@ class Delivery extends Model
         return $this->morphTo();
     }
 
-    public function customerSubscription()
+    public function purchases()
     {
-        return $this->belongsTo(CustomerSubscription::class);
+        return $this->belongsToMany(Purchase::class, 'delivery_purchase', 'delivery_id', 'purchase_id');
     }
-
+    
     public function customer()
     {
         return $this->belongsTo(Customer::class);

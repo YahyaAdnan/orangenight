@@ -20,7 +20,7 @@ class DistributionService
                 'md' => 2
             ])
             ->schema([
-                Components\Select::make('sales_man')
+                Components\Select::make('inventory_id')
                     ->label(__('sales_man'))
                     ->required()
                     ->searchable()

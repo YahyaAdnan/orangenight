@@ -86,7 +86,7 @@ class CustomerSubscriptionResource extends Resource
         return [
             'index' => Pages\ListCustomerSubscriptions::route('/'),
             'create' => Pages\CreateCustomerSubscription::route('/create'),
-            'edit' => Pages\EditCustomerSubscription::route('/{record}/edit'),
+            // 'edit' => Pages\EditCustomerSubscription::route('/{record}/edit'),
         ];
     }
 }

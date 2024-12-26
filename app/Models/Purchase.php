@@ -19,9 +19,19 @@ class Purchase extends Model
         'items' => 'array',
     ];
 
+    public function deliveries()
+    {
+        return $this->morphMany(Delivery::class, 'deliverable');
+    }
+    
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function receipt()
+    {
+        return $this->belongsTo(Receipt::class);
     }
 
     public function customer()

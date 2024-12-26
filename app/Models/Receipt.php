@@ -13,7 +13,6 @@ class Receipt extends Model
         'discount_amount',
         'amount',
         'paid',
-        // 'total',
         'customer_id',
     ];
 
