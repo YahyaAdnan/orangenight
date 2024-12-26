@@ -15,6 +15,7 @@ class CustomerSubscription extends Model
         'agreement_id',
         'active',
         'address',
+        'google_map_url',
         'duration',
         'receipt_id'
     ];
@@ -43,7 +44,7 @@ class CustomerSubscription extends Model
     
     public function deliveries()
     {
-        return $this->hasMany(Delivery::class);
+        return $this->morphMany(Delivery::class, 'deliverable');
     }
 
     public function agreement()

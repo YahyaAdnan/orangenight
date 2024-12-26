@@ -15,6 +15,7 @@ class Delivery extends Model
         'quantity',
         'date',
         'status', // enum('pending','delivered','cancel')
+        'google_map_url',
         'signature',
     ];
 

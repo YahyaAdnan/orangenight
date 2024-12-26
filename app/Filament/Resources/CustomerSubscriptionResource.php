@@ -7,6 +7,7 @@ use App\Filament\Resources\CustomerSubscriptionResource\RelationManagers;
 use App\Models\CustomerSubscription;
 use App\Models\Subscription;
 use App\Models\Customer;
+use App\Service\AddressService;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -65,11 +66,21 @@ class CustomerSubscriptionResource extends Resource
                     ->options(Customer::pluck('full_name', 'id')),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                // Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('address_update')
+                    ->label(__('edit') . ' ' . __('address'))
+                    ->icon('heroicon-s-map-pin')
+                    ->form(fn($record) => AddressService::form($record))
+                    ->action(fn($record, $data) => AddressService::store($record, $data))
+                    ->hidden(!auth()->user()->can('update CustomerSubscription')),
+                Tables\Actions\Action::make('address')
+                    ->label(__('address'))
+                    ->icon('heroicon-s-map-pin')
+                    ->disabled(fn($record) => $record->google_map_url == null)
+                    ->action(fn($record) => redirect()->away($record->google_map_url))
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

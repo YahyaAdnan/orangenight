@@ -37,6 +37,12 @@ class SubscriptionForm
                 ->required()
                 ->maxLength(128)
                 ->columnSpanFull(),
+            Components\TextInput::make('google_map_url')
+                ->label(__('Location URL'))
+                ->required()
+                ->url()
+                ->maxLength(128)
+                ->columnSpanFull(),
             SubscriptionForm::selectCustomers($customers)
         ];
     }

@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Stevebauman\Location\Facades\Location;
+use Illuminate\Http\Request;
 
-Route::get('/test', function () {
-    // dd($customerDetails = auth()->user()->salesMan->customers->pluck('id'));
+Route::get('/test', function (Request $request) {
 });
 
 Route::get('test/{agreement}', function (App\Models\Agreement $agreement) {

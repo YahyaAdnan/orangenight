@@ -62,6 +62,11 @@ class DeliveryTable extends BaseWidget
                     ->default(['pending'])
             ])
             ->actions([
+                Tables\Actions\Action::make('address')
+                    ->label(__('address'))
+                    ->icon('heroicon-s-map-pin')
+                    ->disabled(fn($record) => $record->google_map_url == null)
+                    ->action(fn($record) => redirect()->away($record->google_map_url)),
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\Action::make('move')
                         ->label(__('move'))
