@@ -11,6 +11,16 @@ use Illuminate\Database\Eloquent\Model;
 class AddressService
 {
 
+    public static function getAddress(Model $model)
+    {
+        Tables\Actions\Action::make('address')
+            ->label(__('address'))
+            ->icon('heroicon-s-map-pin')
+            ->color(fn($record) => $record->google_map_url == null ? 'danger' : 'info')
+            ->disabled(fn($record) => $record->google_map_url == null)
+            ->action(fn($record) => redirect()->away($record->google_map_url));
+    }
+    
     public static function form(Model $model)
     {
         return [
