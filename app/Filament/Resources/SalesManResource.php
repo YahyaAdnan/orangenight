@@ -19,9 +19,14 @@ class SalesManResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getPluralModelLabel(): string
+    {
+        return __('sales_men'); 
+    }
+
     public static function getModelLabel(): string
     {
-        return __('sales_man'); 
+        return __('sales_man');
     }
 
     public static function form(Form $form): Form

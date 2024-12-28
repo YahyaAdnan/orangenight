@@ -18,7 +18,7 @@ class PasswordService
                 ->password()
                 ->revealable(),
             Components\TextInput::make('password_confirmation')
-                ->label(__('password_confirmation'))
+                ->label("")
                 ->password()
                 ->required()
                 ->maxLength(255)

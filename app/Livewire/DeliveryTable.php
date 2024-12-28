@@ -19,6 +19,11 @@ class DeliveryTable extends BaseWidget
         $this->model = $model;
     }
 
+    protected function getTableHeading(): ?string
+    {
+        return __('delivery');
+    }
+
     public function table(Table $table): Table
     {
         return $table

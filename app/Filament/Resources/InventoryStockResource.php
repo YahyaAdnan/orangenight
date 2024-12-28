@@ -23,9 +23,14 @@ class InventoryStockResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    public static function getModelLabel(): string
+    public static function getPluralModelLabel(): string
     {
         return __('stocks');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('stock');
     }
 
     public static function canCreate(): bool

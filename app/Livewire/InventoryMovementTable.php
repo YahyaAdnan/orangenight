@@ -20,6 +20,11 @@ class InventoryMovementTable extends BaseWidget
         $this->inventory = $model->inventory;
     }
 
+    protected function getTableHeading(): ?string
+    {
+        return __('inventory_movements');
+    }
+
     public function table(Table $table): Table
     {
         return $table

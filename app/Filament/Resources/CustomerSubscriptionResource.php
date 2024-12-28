@@ -29,6 +29,16 @@ class CustomerSubscriptionResource extends Resource
             ->schema(SubscriptionForm::form());
     }
 
+    public static function getPluralModelLabel(): string
+    {
+        return __('customer_subscriptions');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('subscriptions');
+    }
+
     public static function table(Table $table): Table
     {
         return $table

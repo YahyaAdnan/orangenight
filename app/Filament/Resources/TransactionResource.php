@@ -20,6 +20,8 @@ class TransactionResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    #TODO: ADD LABEL.
+    
     public static function canCreate(): bool
     {
         return false;

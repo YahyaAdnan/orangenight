@@ -22,6 +22,11 @@ class ReceiptTable extends BaseWidget
         $this->model = $model;
     }
 
+    protected function getTableHeading(): ?string
+    {
+        return __('receipts');
+    }
+
     public function table(Table $table): Table
     {
         return $table

@@ -12,6 +12,11 @@ use App\Service\AddressService;
 
 class DeliveriesRecent extends BaseWidget
 {
+    protected function getTableHeading(): ?string
+    {
+        return __('delivery');
+    }
+
     public function table(Table $table): Table
     {
         return $table

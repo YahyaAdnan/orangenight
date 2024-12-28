@@ -20,6 +20,11 @@ class SubscriptionTable extends BaseWidget
         $this->inventory = $model->inventory;
     }
 
+    protected function getTableHeading(): ?string
+    {
+        return __('subscriptions');
+    }
+
     public function table(Table $table): Table
     {
         return $table

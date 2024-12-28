@@ -24,6 +24,11 @@ class InventoryStock extends BaseWidget
         $this->class = basename(str_replace('\\', '/', get_class($model)));
     }
 
+    protected function getTableHeading(): ?string
+    {
+        return __('stock');
+    }
+
     public function table(Table $table): Table
     {
         return $table

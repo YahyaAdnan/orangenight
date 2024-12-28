@@ -21,6 +21,11 @@ class DeliveryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getPluralModelLabel(): string
+    {
+        return __('delivery');
+    }
+
     public static function getModelLabel(): string
     {
         return __('delivery');

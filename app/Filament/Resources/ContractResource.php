@@ -19,9 +19,14 @@ class ContractResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    public static function getModelLabel(): string
+    public static function getPluralModelLabel(): string
     {
         return __('contracts');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('contract');
     }
 
     public static function form(Form $form): Form
