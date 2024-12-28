@@ -4,41 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contract Agreement</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-        }
-        .contract-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .contract-description {
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
-        .terms {
-            margin-bottom: 20px;
-        }
-        .signature-section {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 40px;
-        }
-        .signature {
-            width: 40%;
-            text-align: center;
-        }
-        .signature img {
-            width: 100%;
-            height: auto;
-        }
-        .signature-name {
-            margin-top: 5px;
-        }
-    </style>
 </head>
+
 <body>
     <div class="contract">
         <div class="contract-title">{{ $contract->title }}</div>

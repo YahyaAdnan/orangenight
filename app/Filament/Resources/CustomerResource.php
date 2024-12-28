@@ -14,6 +14,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Coolsam\SignaturePad\Forms\Components\Fields\SignaturePad;
+use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 
 class CustomerResource extends Resource
 {
@@ -100,7 +101,8 @@ class CustomerResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    // Tables\Actions\DeleteBulkAction::make(),
+                    FilamentExportBulkAction::make('export')
+                        ->defaultFormat('pdf')
                 ]),
             ]);
     }

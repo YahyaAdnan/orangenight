@@ -83,7 +83,7 @@ class PaymentService
                         ->minValue(fn(Get $get) => $get('total_amount'))
                         ->live(),
                 ]),
-            Forms\Components\TextInput::make('note')
+            Components\TextInput::make('note')
                 ->label(__('note'))
                 ->maxLength(255),
         ];
