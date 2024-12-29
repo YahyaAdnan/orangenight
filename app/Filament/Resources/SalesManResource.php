@@ -21,7 +21,7 @@ class SalesManResource extends Resource
 
     public static function getNavigationGroup(): string
     {
-        return __('sales_men'); 
+        return __('branches'); 
     }
 
     public static function getPluralModelLabel(): string

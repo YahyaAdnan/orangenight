@@ -25,24 +25,49 @@ class UserResource extends Resource
         return __('users');
     }
 
+    public static function getPluralModelLabel(): string
+    {
+        return __('users');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('user');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\Toggle::make('active')
-                    ->label(__label('active'))
-                    ->required(),
+                    ->label(__('active'))
+                    ->required()
+                    ->columnSpanFull(),
                 Forms\Components\TextInput::make('name')
-                    ->label(__label('full_name'))
+                    ->label(__('full_name'))
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email')
-                    ->label(__label('email'))
+                    ->label(__('email'))
                     ->email()
                     ->required()
                     ->maxLength(255),
-                    Forms\Components\Select::make('roles')
-                    ->label(__label('email'))
+                Forms\Components\TextInput::make('password')
+                    ->label(__('password'))
+                    ->minLength(6)
+                    ->maxLength(32)
+                    ->password()
+                    ->revealable()
+                    ->visibleOn('create'),
+                Forms\Components\TextInput::make('password_confirmation')
+                    ->label("")
+                    ->password()
+                    ->required()
+                    ->maxLength(255)
+                    ->same('password')
+                    ->visibleOn('create'),
+                Forms\Components\Select::make('roles')
+                    ->label(__('roles'))
                     ->multiple()
                     ->columnSpanFull()
                     ->relationship('roles', 'name'),
@@ -54,12 +79,18 @@ class UserResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label(__('full_name'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->label(__('email'))
                     ->searchable(),
                 Tables\Columns\IconColumn::make('active')
+                    ->label(__('active'))
                     ->boolean(),
+                Tables\Columns\TextColumn::make('roles.name')
+                    ->label(__('roles')),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label(__('created_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

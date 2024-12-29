@@ -40,6 +40,23 @@ class DeliveryResource extends Resource
     {
         return false;
     }
+
+    public static function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                Forms\Components\TextInput::make('address')
+                    ->required()
+                    ->maxLength(128)
+                    ->columnSpanFull(),
+                Forms\Components\TextInput::make('google_map_url')
+                    ->label(__('Location URL'))
+                    ->required()
+                    ->url()
+                    ->maxLength(128)
+                    ->columnSpanFull()
+            ]);
+    }
     
     public static function table(Table $table): Table
     {
@@ -72,6 +89,8 @@ class DeliveryResource extends Resource
                         'delivered' => 'success',
                     })
                     ->formatStateUsing(fn (string $state) => __($state)),
+                Tables\Columns\TextColumn::make('address')
+                    ->label(__('address')),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__('created_at'))
                     ->dateTime()
@@ -111,6 +130,14 @@ class DeliveryResource extends Resource
                     }),
             ])
             ->actions([
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('address')
+                    ->label(__('address'))
+                    ->icon('heroicon-s-map-pin')
+                    ->color(fn($record) => $record->google_map_url == null ? 'danger' : 'info')
+                    ->disabled(fn($record) => $record->google_map_url == null)
+                    ->action(fn($record) => redirect()->away($record->google_map_url)),
+                
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

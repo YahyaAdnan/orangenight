@@ -84,7 +84,8 @@ class DeliveryTable extends BaseWidget
                         ->icon('heroicon-s-backspace')
                         ->action(fn(Delivery $record, $data) => CancelDeliveryService::store($record))
                         ->disabled(fn($record) => !CancelDeliveryService::cancelable($record))
-                        ->requiresConfirmation(),
+                        ->requiresConfirmation()
+                        ->hidden(!auth()->user()->can('cancel Delivery')),
                 ])
             ]);
     }

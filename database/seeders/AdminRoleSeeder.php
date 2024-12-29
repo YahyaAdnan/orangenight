@@ -21,7 +21,7 @@ class AdminRoleSeeder extends Seeder
         // Assign all permissions to the 'admin' role
         $adminRole->syncPermissions($permissions);
 
-        $user = \App\Models\User::find(2);
+        $user = \App\Models\User::find(1);
         $user->assignRole('admin');
     }
 }

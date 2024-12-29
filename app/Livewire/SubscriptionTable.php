@@ -62,7 +62,8 @@ class SubscriptionTable extends BaseWidget
                         ->label(__('create') . ' ' . __('payments'))
                         ->icon('heroicon-s-currency-dollar')
                         ->form(fn($record) => PaymentService::form($record->receipt))
-                        ->action(fn($record, $data) => PaymentService::store($record->receipt, $data)),
+                        ->action(fn($record, $data) => PaymentService::store($record->receipt, $data))
+                        ->disabled(!auth()->user()->can('create Payment')),
                         
                     Tables\Actions\Action::make('generate_pdf')
                         ->label('PDF')

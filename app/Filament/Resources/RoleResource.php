@@ -23,13 +23,34 @@ class RoleResource extends Resource
 
     public static function getNavigationGroup(): string
     {
-        return __('user');
+        return __('users');
     }
 
     public static function getPluralModelLabel(): string
     {
         return __('roles');
     }
+
+    public static function getModelLabel(): string
+    {
+        return __('role');
+    }
+
+
+    // public static function canCreate(): bool
+    // {
+    //     return auth('web')->user()->checkPermissionTo('create Role');
+    // }
+
+    // public static function canViewAny(): bool
+    // {
+    //     return auth('web')->user()->checkPermissionTo('create Role');
+    // }
+
+    // public static function canEdit(): bool
+    // {
+    //     return ;
+    // }
 
     public static function form(Form $form): Form
     {
@@ -58,7 +79,8 @@ class RoleResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                // ->hidden(!auth('web')->user()->checkPermissionTo('update Role')),
             ])
             ->bulkActions([
             ]);

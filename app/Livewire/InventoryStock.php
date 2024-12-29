@@ -57,13 +57,13 @@ class InventoryStock extends BaseWidget
                         ->form(fn($record) => MovingService::form($record))
                         ->action(fn(InvSk $invSk, $data) => MovingService::store($invSk, $data))
                         ->hidden(fn() => in_array($this->class, ['Customer'])),
-
+                        // ->hidden(!auth()->user()->can('cancel Delivery'))
                     Tables\Actions\Action::make('distribution')
                         ->label(__('distribution'))
                         ->icon('heroicon-s-user')
                         ->form(fn($record) => DistributionService::form($record))
                         ->action(fn(InvSk $invSk, $data) => DistributionService::store($invSk, $data))
-                        ->hidden(fn() => !in_array($this->class, ['Branch'])),
+                        ->hidden(fn() => !in_array($this->class, ['Branch']) || !auth()->user()->can('distribution')),
 
                     Tables\Actions\Action::make('delete')
                         ->label(__('delete'))
@@ -77,7 +77,7 @@ class InventoryStock extends BaseWidget
                         ->icon('heroicon-s-arrow-left-end-on-rectangle')
                         ->form(fn($record) => RefundService::form($record))
                         ->action(fn(InvSk $invSk, $data) => RefundService::store($invSk, $data))
-                        ->hidden(fn() => in_array($this->class, ['Branch', 'SalesMan'])),
+                        ->hidden(fn() => in_array($this->class, ['Branch', 'SalesMan']) || !auth()->user()->can('refund')),
                         
                 ])->icon('heroicon-m-ellipsis-horizontal'),
             ]);
