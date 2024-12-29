@@ -33,6 +33,11 @@ class Customer extends Model
         return $this->belongsTo(Inventory::class);
     }
 
+    public function categories()
+    {
+        return $this->belongsToMany(CustomerCategory::class, 'customer_customer_categories');
+    }
+
     public function payments()
     {
         return $this->hasMany(Payment::class);

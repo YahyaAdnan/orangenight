@@ -6,6 +6,7 @@ use App\Filament\Resources\CustomerResource\Pages;
 use App\Filament\Resources\CustomerResource\RelationManagers;
 use App\Models\Customer;
 use App\Models\SalesMan;
+use App\Models\CustomerCategory;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -80,6 +81,11 @@ class CustomerResource extends Resource
                                 ->image()
                         ])
                     ])
+                    ->columnSpanFull(),
+                Forms\Components\Select::make('categories')
+                    ->label(__('categories'))
+                    ->multiple()
+                    ->options(CustomerCategory::pluck('name', 'id'))
                     ->columnSpanFull(),
                 Forms\Components\Select::make('salesMen')
                     ->label(__('sales_men'))
