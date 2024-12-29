@@ -4,6 +4,16 @@
             <!-- customer Information -->
             <div>
                 <h2 class="text-lg font-bold">{{$customer->full_name}}</h2>
+                <p>{{__('address')}}: {{$customer->address}}</p>
+                <p>
+                    {{ __('phone') }}: 
+                    @foreach ($customer->phone as $key => $phone)
+                        {{$phone['phone']}}@if(!$loop->last),@else. @endif
+                    @endforeach
+                </p>
+                @if($customer->note)
+                    <p>{{__('note')}}: {{$customer->note}}</p>
+                @endif
             </div>
             <div>
                 <a href="{{$customer->id}}/edit">
@@ -14,13 +24,12 @@
             </div>
         </div>
     </x-filament::section>
-
-    <div class="flex w-full pt-4">
+    <div class="flex w-full pt-4 flex-col sm:flex-row">
         @foreach ($navigators as $key => $navigator)
             <x-filament::button
                 size="md"
                 color="gray"
-                class="flex-1"
+                class="flex-1 mb-2 sm:mb-0"
                 color="{{$selected_nav == $key ? 'primary' : 'gray'}}"
                 wire:click="$set('selected_nav', {{ $key }})"
             >
@@ -28,7 +37,7 @@
             </x-filament::button>
         @endforeach
     </div>
-
+    
     <div class="pt-4">
         @switch($selected_nav)
             @case(0)

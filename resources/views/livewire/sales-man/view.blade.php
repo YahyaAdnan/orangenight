@@ -4,6 +4,15 @@
             <!-- Branch Information -->
             <div>
                 <h2 class="text-lg font-bold">{{$salesMan->full_name}}</h2>
+                <p>
+                    {{ __('phone') }}: 
+                    @foreach ($salesMan->phone as $key => $phone)
+                        {{$phone['phone']}}@if(!$loop->last),@else. @endif
+                    @endforeach
+                </p>
+                @if($salesMan->note)
+                    <p>{{__('note')}}: {{$customer->note}}</p>
+                @endif
             </div>
             <div>
                 <a href="{{$salesMan->id}}/edit">
