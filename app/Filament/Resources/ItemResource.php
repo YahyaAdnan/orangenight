@@ -19,6 +19,11 @@ class ItemResource extends Resource
 {
     protected static ?string $model = Item::class;
 
+    public static function getNavigationGroup(): string
+    {
+        return __('items');
+    }
+    
     public static function getPluralModelLabel(): string
     {
         return __('items'); 
@@ -29,7 +34,7 @@ class ItemResource extends Resource
         return __('item');
     }
     
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
 
     public static function form(Form $form): Form
     {

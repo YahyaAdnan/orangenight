@@ -21,12 +21,17 @@ class CustomerSubscriptionResource extends Resource
 {
     protected static ?string $model = CustomerSubscription::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
+    protected static ?string $navigationIcon = 'heroicon-o-identification';
+    
     public static function form(Form $form): Form
     {
         return $form
             ->schema(SubscriptionForm::form());
+    }
+
+    public static function getNavigationGroup(): string
+    {
+        return __('customers');
     }
 
     public static function getPluralModelLabel(): string

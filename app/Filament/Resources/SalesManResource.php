@@ -17,7 +17,12 @@ class SalesManResource extends Resource
 {
     protected static ?string $model = SalesMan::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-user-group';
+
+    public static function getNavigationGroup(): string
+    {
+        return __('sales_men'); 
+    }
 
     public static function getPluralModelLabel(): string
     {

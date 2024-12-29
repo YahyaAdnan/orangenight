@@ -18,10 +18,20 @@ class TransactionResource extends Resource
 {
     protected static ?string $model = Transaction::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-table-cells';
 
     #TODO: ADD LABEL.
     
+    public static function getNavigationGroup(): string
+    {
+        return __('financial');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('transactions'); 
+    }
+
     public static function canCreate(): bool
     {
         return false;

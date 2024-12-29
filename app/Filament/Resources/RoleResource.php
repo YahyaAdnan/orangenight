@@ -17,9 +17,19 @@ class RoleResource extends Resource
 {
     protected static ?string $model = Role::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-user-circle';
 
     #TODO: ADD LABEL.
+
+    public static function getNavigationGroup(): string
+    {
+        return __('user');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('roles');
+    }
 
     public static function form(Form $form): Form
     {

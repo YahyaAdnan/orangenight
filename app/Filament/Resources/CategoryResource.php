@@ -17,7 +17,12 @@ class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-square-2-stack';
+
+    public static function getNavigationGroup(): string
+    {
+        return __('items');
+    }
 
     public static function getPluralModelLabel(): string
     {

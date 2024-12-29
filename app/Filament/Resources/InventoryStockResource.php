@@ -21,7 +21,12 @@ class InventoryStockResource extends Resource
 {
     protected static ?string $model = InventoryStock::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-archive-box';
+
+    public static function getNavigationGroup(): string
+    {
+        return __('stocks');
+    }
 
     public static function getPluralModelLabel(): string
     {

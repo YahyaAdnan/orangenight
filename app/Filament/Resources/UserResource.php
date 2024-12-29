@@ -18,22 +18,31 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-user';
+
+    public static function getNavigationGroup(): string
+    {
+        return __('users');
+    }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\Toggle::make('active')
+                    ->label(__label('active'))
                     ->required(),
                 Forms\Components\TextInput::make('name')
+                    ->label(__label('full_name'))
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email')
+                    ->label(__label('email'))
                     ->email()
                     ->required()
                     ->maxLength(255),
                     Forms\Components\Select::make('roles')
+                    ->label(__label('email'))
                     ->multiple()
                     ->columnSpanFull()
                     ->relationship('roles', 'name'),
@@ -69,7 +78,7 @@ class UserResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    // Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

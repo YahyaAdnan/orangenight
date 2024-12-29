@@ -17,8 +17,13 @@ class ReceiptResource extends Resource
 {
     protected static ?string $model = Receipt::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-newspaper';
 
+    public static function getNavigationGroup(): string
+    {
+        return __('financial'); 
+    }
+    
     public static function getPluralModelLabel(): string
     {
         return __('receipts'); 
