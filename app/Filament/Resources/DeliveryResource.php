@@ -53,29 +53,28 @@ class DeliveryResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('customer_id')
-                    ->customer(__label('customer'))
+                    ->label(__label('customer'))
                     ->required()
                     ->searchable()
                     ->columnSpanFull()
                     ->options(Customer::pluck('full_name', 'id')),
                 Forms\Components\Select::make('item_id')
-                    ->customer(__label('item'))
+                    ->label(__label('item'))
                     ->required()
                     ->searchable()
                     ->options(Item::pluck('title', 'id')),
                 Forms\Components\TextInput::make('quantity')    
-                    ->customer(__label('quantity'))
+                    ->label(__label('quantity'))
                     ->required()
                     ->numeric()
                     ->minValue(0)
                     ->maxValue(1000),
                 Forms\Components\DatePicker::make('date')
-                    ->customer(__label('date'))
+                    ->label(__label('date'))
                     ->required()
                     ->columnSpanFull()
                     ->native(false),              
                 Forms\Components\TextInput::make('google_map_url')
-                    ->label(__('Location URL'))
                     ->required()
                     ->url()
                     ->maxLength(128)
