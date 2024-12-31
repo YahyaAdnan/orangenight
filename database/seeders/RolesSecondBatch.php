@@ -67,6 +67,8 @@ class RolesSecondBatch extends Seeder
         ]);
 
         $adminRole = Role::find(1);
-        $adminRole->givePermissionTo($permissions);
+        foreach ($permissions as $key => $permission) {
+            $adminRole->givePermissionTo($permission->name);
+        }
     }
 }
