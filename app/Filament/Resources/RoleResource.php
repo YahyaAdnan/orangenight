@@ -57,7 +57,7 @@ class RoleResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
-                    ->label(__('title')) 
+                    ->label(__('title') . 'test') 
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Select::make('permissions')
