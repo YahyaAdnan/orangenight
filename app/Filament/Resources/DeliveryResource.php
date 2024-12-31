@@ -36,19 +36,44 @@ class DeliveryResource extends Resource
         return __('delivery');
     }
 
-    public static function canCreate(): bool
-    {
-        return false;
-    }
+    // public static function canCreate(): bool
+    // {
+    //     return false;
+    // }
 
     public static function form(Form $form): Form
     {
+        // 'customer_id',
+        // 'item_id',
+        // 'quantity',
+        // 'date',
+        // 'status', // enum('pending','delivered','cancel')
+        // 'google_map_url',
+        // 'signature'
         return $form
             ->schema([
-                Forms\Components\TextInput::make('address')
+                Forms\Components\Select::make('customer_id')
+                    ->customer(__label('customer'))
                     ->required()
-                    ->maxLength(128)
-                    ->columnSpanFull(),
+                    ->searchable()
+                    ->columnSpanFull()
+                    ->options(Customer::pluck('full_name', 'id')),
+                Forms\Components\Select::make('item_id')
+                    ->customer(__label('item'))
+                    ->required()
+                    ->searchable()
+                    ->options(Item::pluck('title', 'id')),
+                Forms\Components\TextInput::make('quantity')    
+                    ->customer(__label('quantity'))
+                    ->required()
+                    ->numeric()
+                    ->minValue(0)
+                    ->maxValue(1000),
+                Forms\Components\DatePicker::make('date')
+                    ->customer(__label('date'))
+                    ->required()
+                    ->columnSpanFull()
+                    ->native(false),              
                 Forms\Components\TextInput::make('google_map_url')
                     ->label(__('Location URL'))
                     ->required()
@@ -89,8 +114,6 @@ class DeliveryResource extends Resource
                         'delivered' => 'success',
                     })
                     ->formatStateUsing(fn (string $state) => __($state)),
-                Tables\Columns\TextColumn::make('address')
-                    ->label(__('address')),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__('created_at'))
                     ->dateTime()
@@ -157,7 +180,7 @@ class DeliveryResource extends Resource
     {
         return [
             'index' => Pages\ListDeliveries::route('/'),
-            // 'create' => Pages\CreateDelivery::route('/create'),
+            'create' => Pages\CreateDelivery::route('/create'),
             // 'edit' => Pages\EditDelivery::route('/{record}/edit'),
         ];
     }
