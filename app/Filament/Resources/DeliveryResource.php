@@ -53,24 +53,24 @@ class DeliveryResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('customer_id')
-                    ->label(__label('customer'))
+                    ->label(__('customer'))
                     ->required()
                     ->searchable()
                     ->columnSpanFull()
                     ->options(Customer::pluck('full_name', 'id')),
                 Forms\Components\Select::make('item_id')
-                    ->label(__label('item'))
+                    ->label(__('item'))
                     ->required()
                     ->searchable()
                     ->options(Item::pluck('title', 'id')),
                 Forms\Components\TextInput::make('quantity')    
-                    ->label(__label('quantity'))
+                    ->label(__('quantity'))
                     ->required()
                     ->numeric()
                     ->minValue(0)
                     ->maxValue(1000),
                 Forms\Components\DatePicker::make('date')
-                    ->label(__label('date'))
+                    ->label(__('date'))
                     ->required()
                     ->columnSpanFull()
                     ->native(false),              
