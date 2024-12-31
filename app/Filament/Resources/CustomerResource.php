@@ -133,9 +133,9 @@ class CustomerResource extends Resource
     public static function getPages(): array
     {
         return [
+            'create' => Pages\CreateCustomer::route('/create'),
             'index' => Pages\ListCustomers::route('/'),
             'view' => Pages\ViewCustomer::route('/{record}'),
-            'create' => Pages\CreateCustomer::route('/create'),
             'edit' => Pages\EditCustomer::route('/{record}/edit'),
         ];
     }
