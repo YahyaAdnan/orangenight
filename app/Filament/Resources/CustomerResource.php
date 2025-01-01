@@ -61,6 +61,27 @@ class CustomerResource extends Resource
                     ])
                     ->columnSpanFull()
                     ->minItems(1),
+            Forms\Components\Repeater::make('documents')
+                    ->label(__('documents')) 
+                    ->schema([
+                        Forms\Components\Grid::make([
+                            'default' => 2,
+                            'sm' => 1,
+                            'md' => 2,
+                        ])
+                        ->schema([
+                            Forms\Components\TextInput::make('title')
+                                ->label(__('title')) 
+                                ->maxLength(32)
+                                ->required(),
+                            Forms\Components\FileUpload::make('image')
+                                ->label(__('image')) 
+                                ->required()
+                                ->image()
+                        ])
+                    ])
+                    ->visibleOn('create')
+                    ->columnSpanFull(),
                 Forms\Components\Repeater::make('documents')
                     ->label(__('documents')) 
                     ->relationship()
@@ -81,6 +102,7 @@ class CustomerResource extends Resource
                                 ->image()
                         ])
                     ])
+                    ->visibleOn('edit')
                     ->columnSpanFull(),
                 Forms\Components\Select::make('categories')
                     ->label(__('categories'))
