@@ -79,6 +79,30 @@
         .agreement-date, .note {
             margin-top: 20px; /* Optional: Add space before agreement date and note */
         }
+
+        .print-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            z-index: 1000;
+        }
+
+        .print-button:hover {
+            background-color: #0056b3;
+        }
+
+        @media print {
+            .print-button {
+                display: none;
+            }
+        }
     </style>
 </head>
 
@@ -88,6 +112,8 @@
     @endphp
     <!-- Background image placed at the top with full width -->
     <img src="{{ asset('assets/background.png') }}" class="background-image" alt="Contract Background">
+
+    <button class="print-button" onclick="window.print()">{{ __('Print') }}</button>
 
     <!-- Main contract content -->
     <div class="contract">

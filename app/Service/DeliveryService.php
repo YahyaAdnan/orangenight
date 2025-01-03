@@ -46,6 +46,7 @@ class DeliveryService
     {
         $delivery->signature = $data['signature'];
         $delivery->status = 'delivered';
+        $delivery->signature_date = now();
         $delivery->save();
 
         $salesMan = SalesMan::where('user_id', Auth::id())->first();

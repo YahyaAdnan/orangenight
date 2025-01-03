@@ -17,6 +17,7 @@ class Delivery extends Model
         'status', // enum('pending','delivered','cancel')
         'google_map_url',
         'signature',
+        'signature_date'
     ];
 
     public function deliverable()

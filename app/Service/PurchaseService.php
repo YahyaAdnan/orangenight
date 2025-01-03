@@ -20,6 +20,10 @@ class PurchaseService
     // 'receipt_id',
     // 'items',
 
+    public static function store($)
+    {
+
+    }
     public static function form(?Customer $customer = null)
     {
         $customers = $customer == null ?
