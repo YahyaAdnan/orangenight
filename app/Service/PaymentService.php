@@ -76,12 +76,14 @@ class PaymentService
                         ->default($receipt->total_amount - $receipt->paid)
                         ->minValue(1)
                         ->maxValue($receipt->total_amount - $receipt->paid)
-                        ->live(),
+                        ->live()
+                        ->required(),
                     Components\TextInput::make('paid')
                         ->label(__('paid'))
                         ->numeric()
                         ->minValue(fn(Get $get) => $get('total_amount'))
-                        ->live(),
+                        ->live()
+                        ->required(),
                 ]),
             Components\TextInput::make('note')
                 ->label(__('note'))

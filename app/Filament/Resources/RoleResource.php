@@ -19,7 +19,11 @@ class RoleResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-user-circle';
 
-    #TODO: ADD LABEL.
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return auth()->user()->can('view-any Role');
+    }
 
     public static function getNavigationGroup(): string
     {

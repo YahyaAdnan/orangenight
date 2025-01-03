@@ -106,11 +106,13 @@ class CustomerResource extends Resource
                     ->columnSpanFull(),
                 Forms\Components\Select::make('categories')
                     ->label(__('categories'))
+                    ->relationship()
                     ->multiple()
                     ->options(CustomerCategory::pluck('name', 'id'))
                     ->columnSpanFull(),
                 Forms\Components\Select::make('salesMen')
                     ->label(__('sales_men'))
+                    ->relationship()
                     ->multiple()
                     ->options(SalesMan::pluck('full_name', 'id'))
                     ->columnSpanFull(),

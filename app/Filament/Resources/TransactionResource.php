@@ -58,12 +58,12 @@ class TransactionResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('debit')
                     ->badge()
-                    ->color('success')
+                    ->color('danger')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('credit')
                     ->badge()
-                    ->color('danger')
+                    ->color('success')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')

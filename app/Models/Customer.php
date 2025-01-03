@@ -35,7 +35,7 @@ class Customer extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(CustomerCategory::class, 'customer_customer_categories');
+        return $this->belongsToMany(CustomerCategory::class, 'customer_customer_categories', 'customer_id', 'category_id');
     }
 
     public function payments()

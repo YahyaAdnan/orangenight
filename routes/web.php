@@ -23,6 +23,6 @@ Route::get('receipt/{receipt}', function (App\Models\Receipt $receipt) {
 })->name('receipt.show');
 
 
-// Route::get('receipt/{receipt}', function (App\Models\Receipt $receipt) {
-//     return view('app.receipt.view', ['receipt' => $receipt]);
-// })->name('receipt.show');
+Route::get('purchase/{purchase}', function (App\Models\Purchase $purchase) {
+    return view('app.purchase.view', ['purchase' => $purchase]);
+})->name('purchase.show');

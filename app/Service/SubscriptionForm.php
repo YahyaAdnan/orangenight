@@ -175,6 +175,7 @@ class SubscriptionForm
             'agreement_id' => $agreement->id ,
             'active' => 1,
             'address' => $data['address'],
+            'google_map_url' => $data['google_map_url'],
             'duration' => $subscription->duration,
             'receipt_id' => $receipt->id,
         ]);
@@ -204,6 +205,7 @@ class SubscriptionForm
                 'deliverable_id' => $customerSubscription->id,  
                 'customer_id' => $customerSubscription->customer_id,
                 'item_id' => $term->item_id,
+                'google_map_url' => $customerSubscription->google_map_url,
                 'quantity' => $term->quantity,
                 'date' => now()->addDays($term->day),
                 'status' => 'pending', // enum('pending','delivered','cancel')

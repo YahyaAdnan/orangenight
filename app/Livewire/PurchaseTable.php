@@ -53,7 +53,7 @@ class PurchaseTable extends BaseWidget
                 Tables\Actions\Action::make('print')
                     ->label(__('PDF'))
                     ->icon('heroicon-s-printer')
-                    ->action(fn($record) => dd($record->deliveries))
+                    ->action(fn($record) => redirect()->route('purchase.show', ['purchase' => $record->id])),
             ]);
     }
 }

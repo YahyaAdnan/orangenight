@@ -100,8 +100,8 @@ class ContractResource extends Resource
     {
         return [
             'index' => Pages\ListContracts::route('/'),
-            'view' => Pages\ViewContract::route('/{record}'),
             'create' => Pages\CreateContract::route('/create'),
+            'view' => Pages\ViewContract::route('/{record}'),
             'edit' => Pages\EditContract::route('/{record}/edit'),
         ];
     }
