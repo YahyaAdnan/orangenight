@@ -44,15 +44,18 @@
                 @livewire('DeliveryTable', ['model' => $customer])
                 @break
             @case(1)
-                @livewire('InventoryMovementTable', ['model' => $customer])
+                @livewire('PurchaseTable', ['customer' => $customer])
                 @break
             @case(2)
+                @livewire('InventoryMovementTable', ['model' => $customer])
+                @break
+            @case(3)
                 @livewire('InventoryStock', ['model' => $customer])
                     @break
-            @case(3)
+            @case(4)
                 @livewire('SubscriptionTable', ['model' => $customer])
                     @break
-            @case(4)
+            @case(5)
                 @livewire('ReceiptTable', ['model' => $customer])
                     @break
             @default

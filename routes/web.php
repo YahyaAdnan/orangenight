@@ -17,3 +17,12 @@ Route::get('deliveries/{delivery}', function (App\Models\Delivery $delivery) {
     if($delivery->status != 'deliveries')
     return view('app.deliveries.view', ['delivery' => $delivery]);
 })->name('deliveries.show');
+
+Route::get('receipt/{receipt}', function (App\Models\Receipt $receipt) {
+    return view('app.receipt.view', ['receipt' => $receipt]);
+})->name('receipt.show');
+
+
+// Route::get('receipt/{receipt}', function (App\Models\Receipt $receipt) {
+//     return view('app.receipt.view', ['receipt' => $receipt]);
+// })->name('receipt.show');

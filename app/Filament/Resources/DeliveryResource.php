@@ -159,6 +159,11 @@ class DeliveryResource extends Resource
                     ->color(fn($record) => $record->google_map_url == null ? 'danger' : 'info')
                     ->disabled(fn($record) => $record->google_map_url == null)
                     ->action(fn($record) => redirect()->away($record->google_map_url)),
+                Tables\Actions\Action::make('print')
+                    ->label(__('PDF'))
+                    ->icon('heroicon-s-printer')
+                    ->hidden(fn($record) => $record->status != 'delivered')
+                    ->action(fn($record) => redirect()->route('deliveries.show', ['delivery' => $record->id])),
                 
             ])
             ->bulkActions([

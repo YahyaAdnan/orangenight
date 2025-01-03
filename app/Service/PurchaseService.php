@@ -14,16 +14,6 @@ use Carbon\Carbon;
 
 class PurchaseService
 {
-    // 'date',
-    // 'customer_id',
-    // 'user_id',
-    // 'receipt_id',
-    // 'items',
-
-    public static function store($)
-    {
-
-    }
     public static function form(?Customer $customer = null)
     {
         $customers = $customer == null ?
@@ -66,7 +56,7 @@ class PurchaseService
     public static function store($data)
     {
         $customer = Customer::find($data['customer_id']);
-
+        // dd($data);
         // CREATE RECEIPT
         $receipt = Receipt::create([
             'title' => $customer->full_name . ' (' . now()->format('d-m-Y H:i') . ')',
@@ -94,6 +84,8 @@ class PurchaseService
                 'date' => Carbon::createFromFormat('d/m/Y', $data['date'])->format('Y-m-d'),
             ]);
         }
+
+        PurchaseService::updateReceipt($purchase);
     }
 
     public static function updateReceipt(Purchase $purchase)
@@ -102,13 +94,14 @@ class PurchaseService
 
         foreach ($purchase->deliveries as $key => $delivery) 
         {
-            $amount += $delivery->item->selling_price;
+            $amount = $amount + ($delivery->item->selling_price * $delivery->quantity);
         }
 
         $purchase->receipt->update([
             'total_amount' => $amount - $purchase->receipt->discount_amount,
             'amount' => $amount,
         ]);
+
     }
 
 }

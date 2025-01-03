@@ -15,6 +15,7 @@ class View extends Component
         $this->selected_nav = 0;
         $this->navigators = array(
             __('delivery'), 
+            __('purchase'), 
             __('inventory_movements'), 
             __('stocks'), 
             __('subscription'), 

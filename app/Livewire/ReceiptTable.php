@@ -92,14 +92,19 @@ class ReceiptTable extends BaseWidget
             ->actions([
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\Action::make('show')
-                        ->label('show payment')
+                        ->label('show')
                         ->icon('heroicon-s-eye')
                         ->form(fn($record) => PaymentService::showReceipt($record))
                         ->modalCancelAction(false)
                         ->modalSubmitAction(false),
 
+                    Tables\Actions\Action::make('print')
+                        ->label(__('PDF'))
+                        ->icon('heroicon-s-printer')
+                        ->action(fn($record) => redirect()->route('receipt.show', ['receipt' => $record->id])),
+
                     Tables\Actions\Action::make('create_payments')
-                        ->label('Create Payments')
+                        ->label(__('create' . ' ' . __('payments')))
                         ->icon('heroicon-s-currency-dollar')
                         ->form(fn($record) => PaymentService::form($record))
                         ->action(fn($record, $data) => PaymentService::store($record, $data))

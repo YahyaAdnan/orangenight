@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 
 class ReceiptResource extends Resource
 {
@@ -103,11 +104,11 @@ class ReceiptResource extends Resource
                     ->label(__('paid'))
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('remaining')
-                    ->label(__('remaining'))
-                    ->formatStateUsing(fn(Record $record) => $record->paid)
-                    ->numeric()
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('remaining')
+                //     ->label(__('remaining'))
+                //     ->formatStateUsing(fn(Receipt $record) => $record->total_amount - $record->paid)
+                //     ->numeric()
+                //     ->sortable(),
                 Tables\Columns\TextColumn::make('customer.full_name')
                     ->label(__('customer'))
                     ->sortable()
@@ -142,9 +143,15 @@ class ReceiptResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('print')
+                    ->label(__('PDF'))
+                    ->icon('heroicon-s-printer')
+                    ->action(fn($record) => redirect()->route('receipt.show', ['receipt' => $record->id])),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
+                    FilamentExportBulkAction::make('export')
+                        ->defaultFormat('pdf')
                 ]),
             ]);
     }
