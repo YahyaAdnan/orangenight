@@ -48,8 +48,8 @@ class UserResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email')
-                    ->label(__('email'))
-                    ->email()
+                    ->label(__('username'))
+                    // ->email()
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('password')
