@@ -4,7 +4,7 @@ namespace App\Providers\Filament;
 
 use App\Livewire\DeliveriesRecent;
 use App\Livewire\ContractWidget;
-use App\Service\Login;
+use App\Service\LogIn;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -29,7 +29,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('')
-            ->login(Login::class)
+            ->login(LogIn::class)
             ->colors([
                 'primary' => Color::Amber,
             ])

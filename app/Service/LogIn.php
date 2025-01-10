@@ -8,7 +8,7 @@ use Filament\Forms\Components\Component;
 use Filament\Pages\Auth\Login as BaseAuth;
 use Illuminate\Validation\ValidationException;
 
-class Login extends BaseAuth
+class LogIn extends BaseAuth
 {
     public function form(Form $form): Form
     {
